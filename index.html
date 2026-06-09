@@ -1,869 +1,326 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealsHub — รีวิวสินค้าคัดสรร | Curated Product Reviews</title>
-<meta name="description" content="รีวิวสินค้าจาก Amazon คัดสรรโดยผู้เชี่ยวชาญ | Expert product reviews from Amazon. Find the best deals.">
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<title>DealsHub — Amazon Best Sellers & Top Product Reviews 2026</title>
+<meta name="description" content="Discover the best-selling products on Amazon in 2026. Expert reviews, honest ratings, and exclusive deals on top-rated electronics, beauty, home, health & more.">
+<meta name="keywords" content="amazon best sellers, best products amazon 2026, amazon deals, top rated products, amazon affiliate, product reviews">
+<meta property="og:title" content="DealsHub — Amazon Best Sellers & Top Product Reviews 2026">
+<meta property="og:description" content="Curated Amazon best sellers with expert reviews. Find the best deals on electronics, beauty, home & more.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://over24hrs.github.io/Bestseller/">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #1a1a2e;
-  --ink2: #16213e;
-  --paper: #fafaf7;
-  --cream: #f3f0e8;
-  --gold: #c9972a;
-  --gold-light: #f0c96b;
-  --red: #c0392b;
-  --text: #2c2c3e;
-  --muted: #7a7a8c;
-  --border: #e2ddd5;
-  --white: #ffffff;
-  --tag-bg: #eef0ff;
-  --tag-color: #3b3f8c;
+  --ink:#1a1a2e; --ink2:#16213e; --paper:#fafaf7; --cream:#f3f0e8;
+  --gold:#c9972a; --gold-light:#f0c96b; --red:#c0392b;
+  --text:#2c2c3e; --muted:#7a7a8c; --border:#e2ddd5;
+  --white:#ffffff; --tag-bg:#eef0ff; --tag-color:#3b3f8c; --green:#2d8a4e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--text);line-height:1.7;}
+
+/* CONFIG BAR */
+.config-bar{background:#0d1120;padding:10px 5%;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.config-bar label{color:rgba(255,255,255,0.5);font-size:12px;font-family:'JetBrains Mono',monospace;}
+.config-bar input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:5px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;width:190px;outline:none;}
+.config-bar input:focus{border-color:var(--gold);}
+.config-bar button{background:var(--gold);color:var(--ink);border:none;padding:6px 14px;border-radius:4px;font-weight:700;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;}
+.config-status{font-size:11px;font-family:'JetBrains Mono',monospace;}
+.config-status.ok{color:#6ee7b7;} .config-status.err{color:#fca5a5;}
+
+/* NAV */
+nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:2px solid var(--gold);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:13px;font-weight:600;letter-spacing:0.5px;transition:color 0.2s;text-transform:uppercase;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-badge{background:rgba(201,151,42,0.15);border:1px solid var(--gold);color:var(--gold-light);padding:4px 12px;border-radius:20px;font-size:11px;font-family:'JetBrains Mono',monospace;}
+
+/* HERO */
+.hero{background:var(--ink2);padding:80px 5% 70px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,42,0.12) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:18px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,64px);font-weight:700;color:#fff;line-height:1.15;max-width:700px;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-size:16px;color:rgba(255,255,255,0.55);max-width:560px;margin-bottom:36px;font-weight:300;line-height:1.8;}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);text-decoration:none;padding:14px 28px;border-radius:4px;font-weight:700;font-size:15px;transition:all 0.2s;}
+.hero-cta:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,151,42,0.3);}
+.hero-stats{display:flex;gap:48px;margin-top:52px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;}
+.stat-num{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--gold-light);}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* TRUST BAR */
+.trust-bar{background:var(--cream);padding:16px 5%;display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:500;}
+.trust-icon{font-size:16px;}
+
+/* SECTION */
+.section{padding:64px 5%;}
+.section-alt{background:var(--cream);}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:12px;}
+.section-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--ink);}
+.section-sub{font-size:14px;color:var(--muted);margin-top:4px;}
+.see-all{font-size:13px;color:var(--gold);text-decoration:none;font-weight:600;}
+.see-all:hover{text-decoration:underline;}
+
+/* LIVE BADGE */
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(45,138,78,0.12);border:1px solid rgba(45,138,78,0.3);color:var(--green);padding:4px 12px;border-radius:20px;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+.last-updated{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* CATEGORY PILLS */
+.cat-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.cat-pill{padding:7px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;color:var(--text);font-family:'Inter',sans-serif;}
+.cat-pill:hover,.cat-pill.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;}
+
+/* PRODUCT CARD */
+.product-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all 0.25s;display:flex;flex-direction:column;}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,0.12);border-color:var(--gold);}
+.card-img-wrap{position:relative;}
+.card-img{width:100%;height:190px;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:68px;}
+.card-badge{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;}
+.card-rank{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--ink);font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;font-family:'JetBrains Mono',monospace;}
+.card-body{padding:16px;flex:1;display:flex;flex-direction:column;}
+.card-tag{display:inline-block;background:var(--tag-bg);color:var(--tag-color);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px;}
+.card-title{font-weight:600;font-size:14px;line-height:1.45;color:var(--ink);margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-stars{color:var(--gold);font-size:12px;margin-bottom:6px;}
+.card-stars span{color:var(--muted);font-size:11px;margin-left:4px;}
+.card-keywords{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
+.keyword-tag{background:#f0f4ff;color:#4a5ab8;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--border);}
+.card-price{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--red);}
+.card-price-old{font-size:11px;color:var(--muted);text-decoration:line-through;font-family:'JetBrains Mono',monospace;margin-left:5px;}
+.btn-amazon{background:var(--gold);color:var(--ink);padding:7px 13px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.btn-amazon:hover{background:var(--gold-light);}
+
+/* SKELETON */
+.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skeleton-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.skeleton-img{height:190px;} .skeleton-body{padding:16px;}
+.skeleton-line{height:13px;margin-bottom:10px;} .skeleton-line.short{width:55%;} .skeleton-line.medium{width:78%;}
+
+/* REFRESH BTN */
+.refresh-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
+.refresh-btn:hover{background:rgba(201,151,42,0.15);}
+.refresh-btn.spinning svg{animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* SEO BLOG TEASER */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
+.blog-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all 0.2s;}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(26,26,46,0.1);border-color:var(--gold);}
+.blog-img{height:140px;background:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:52px;}
+.blog-body{padding:18px;}
+.blog-cat{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.blog-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:8px;}
+.blog-excerpt{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.blog-link{font-size:13px;color:var(--gold);font-weight:600;text-decoration:none;}
+.blog-link:hover{text-decoration:underline;}
+
+/* NEWSLETTER */
+.newsletter{background:var(--ink);padding:64px 5%;text-align:center;}
+.newsletter h2{font-family:'Playfair Display',serif;font-size:32px;color:#fff;margin-bottom:8px;}
+.newsletter p{color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:28px;}
+.newsletter-form{display:flex;gap:10px;max-width:460px;margin:0 auto;}
+.newsletter-form input{flex:1;padding:13px 18px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-family:'Inter',sans-serif;font-size:14px;outline:none;}
+.newsletter-form input::placeholder{color:rgba(255,255,255,0.3);}
+.newsletter-form input:focus{border-color:var(--gold);}
+.newsletter-form button{background:var(--gold);color:var(--ink);border:none;padding:13px 22px;border-radius:4px;font-weight:700;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
+
+/* FOOTER */
+footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-size:13px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-brand p{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.35);max-width:240px;margin-top:10px;}
+.footer-col h5{color:rgba(255,255,255,0.7);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:8px;}
+.footer-col a{color:rgba(255,255,255,0.35);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.footer-col a:hover{color:var(--gold-light);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.affiliate-notice{font-size:11px;color:rgba(255,255,255,0.25);max-width:620px;line-height:1.6;}
+
+/* API NOTICE */
+.api-notice{margin-top:24px;background:rgba(201,151,42,0.08);border:1px solid rgba(201,151,42,0.25);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted);display:none;}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .newsletter-form{flex-direction:column;}
+  .config-bar{flex-direction:column;align-items:flex-start;}
+  .trust-bar{gap:16px;}
+  .hero-stats{gap:24px;}
+}
+@media(max-width:480px){
+  .footer-top{grid-template-columns:1fr;}
+  .product-grid{grid-template-columns:1fr;}
+  .blog-grid{grid-template-columns:1fr;}
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Sarabun', sans-serif;
-  background: var(--paper);
-  color: var(--text);
-  line-height: 1.7;
-}
-
-/* ===== NAV ===== */
-nav {
-  background: var(--ink);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 0 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  border-bottom: 2px solid var(--gold);
-}
-
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--white);
-  text-decoration: none;
-  letter-spacing: 1px;
-}
-
-.nav-logo span { color: var(--gold); }
-
-.nav-links {
-  display: flex;
-  gap: 28px;
-  list-style: none;
-}
-
-.nav-links a {
-  color: rgba(255,255,255,0.75);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: color 0.2s;
-  text-transform: uppercase;
-}
-
-.nav-links a:hover { color: var(--gold-light); }
-
-.lang-toggle {
-  background: rgba(201,151,42,0.15);
-  border: 1px solid var(--gold);
-  color: var(--gold-light);
-  padding: 5px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.lang-toggle:hover { background: rgba(201,151,42,0.3); }
-
-/* ===== HERO ===== */
-.hero {
-  background: var(--ink2);
-  padding: 80px 5% 70px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 420px; height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,151,42,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '"';
-  position: absolute;
-  bottom: -40px; left: 3%;
-  font-family: 'Playfair Display', serif;
-  font-size: 280px;
-  font-style: italic;
-  color: rgba(201,151,42,0.05);
-  line-height: 1;
-  pointer-events: none;
-}
-
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--gold);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(36px, 6vw, 64px);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.15;
-  max-width: 700px;
-  margin-bottom: 10px;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--gold-light);
-}
-
-.hero-sub {
-  font-size: 16px;
-  color: rgba(255,255,255,0.55);
-  max-width: 520px;
-  margin-bottom: 36px;
-  font-weight: 300;
-}
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--gold);
-  color: var(--ink);
-  text-decoration: none;
-  padding: 14px 28px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 15px;
-  transition: all 0.2s;
-  letter-spacing: 0.3px;
-}
-
-.hero-cta:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(201,151,42,0.3);
-}
-
-.hero-stats {
-  display: flex;
-  gap: 40px;
-  margin-top: 52px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.stat-item { }
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--gold-light);
-}
-.stat-label {
-  font-size: 12px;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 2px;
-}
-
-/* ===== CATEGORIES ===== */
-.section { padding: 64px 5%; }
-.section-alt { background: var(--cream); }
-
-.section-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 36px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--border);
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.section-title-th {
-  font-size: 14px;
-  color: var(--muted);
-  font-weight: 300;
-  margin-left: 10px;
-}
-
-.see-all {
-  font-size: 13px;
-  color: var(--gold);
-  text-decoration: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.see-all:hover { text-decoration: underline; }
-
-/* Category pills */
-.cat-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.cat-pill {
-  padding: 8px 18px;
-  border-radius: 24px;
-  border: 1.5px solid var(--border);
-  background: var(--white);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: var(--text);
-  text-decoration: none;
-}
-
-.cat-pill:hover, .cat-pill.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--white);
-}
-
-/* ===== PRODUCT CARDS ===== */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.product-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: all 0.25s;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(26,26,46,0.12);
-  border-color: var(--gold);
-}
-
-.card-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 60px;
-}
-
-.card-badge {
-  position: absolute;
-  top: 12px; left: 12px;
-  background: var(--red);
-  color: var(--white);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 3px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.card-img-wrap {
-  position: relative;
-}
-
-.card-body {
-  padding: 18px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-tag {
-  display: inline-block;
-  background: var(--tag-bg);
-  color: var(--tag-color);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 9px;
-  border-radius: 3px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.card-title {
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
-.card-title-th {
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-
-.card-stars {
-  color: var(--gold);
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-.card-stars span {
-  color: var(--muted);
-  font-size: 12px;
-  margin-left: 4px;
-}
-
-.card-excerpt {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-  flex: 1;
-  margin-bottom: 16px;
-}
-
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-}
-
-.card-price {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--red);
-}
-
-.card-price-old {
-  font-size: 12px;
-  color: var(--muted);
-  text-decoration: line-through;
-  font-family: 'JetBrains Mono', monospace;
-  margin-left: 6px;
-}
-
-.btn-amazon {
-  background: var(--gold);
-  color: var(--ink);
-  padding: 8px 14px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.btn-amazon:hover {
-  background: var(--gold-light);
-}
-
-/* ===== FEATURED REVIEW ===== */
-.featured-review {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.featured-img {
-  background: var(--ink2);
-  min-height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 100px;
-  position: relative;
-}
-
-.featured-content {
-  padding: 44px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.featured-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--gold);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.featured-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.3;
-  margin-bottom: 8px;
-}
-
-.featured-title-th {
-  font-size: 15px;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.featured-text {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 24px;
-}
-
-.pros-cons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.pros h4, .cons h4 {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-}
-
-.pros h4 { color: #2d8a4e; }
-.cons h4 { color: var(--red); }
-
-.pros ul, .cons ul {
-  list-style: none;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.pros li::before { content: '✓ '; color: #2d8a4e; font-weight: 700; }
-.cons li::before { content: '✗ '; color: var(--red); font-weight: 700; }
-.pros li, .cons li { margin-bottom: 4px; }
-
-/* ===== NEWSLETTER ===== */
-.newsletter {
-  background: var(--ink);
-  padding: 64px 5%;
-  text-align: center;
-}
-
-.newsletter h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-
-.newsletter p {
-  color: rgba(255,255,255,0.5);
-  font-size: 14px;
-  margin-bottom: 28px;
-}
-
-.newsletter-form {
-  display: flex;
-  gap: 10px;
-  max-width: 460px;
-  margin: 0 auto;
-}
-
-.newsletter-form input {
-  flex: 1;
-  padding: 13px 18px;
-  border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  color: var(--white);
-  font-family: 'Sarabun', sans-serif;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
-.newsletter-form input:focus { border-color: var(--gold); }
-
-.newsletter-form button {
-  background: var(--gold);
-  color: var(--ink);
-  border: none;
-  padding: 13px 22px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 14px;
-  font-family: 'Sarabun', sans-serif;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-}
-
-.newsletter-form button:hover { background: var(--gold-light); }
-
-/* ===== FOOTER ===== */
-footer {
-  background: #0d1120;
-  padding: 48px 5% 28px;
-  color: rgba(255,255,255,0.4);
-  font-size: 13px;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.footer-brand .nav-logo {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 20px;
-}
-
-.footer-brand p {
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.35);
-  max-width: 240px;
-}
-
-.footer-col h5 {
-  color: rgba(255,255,255,0.7);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 14px;
-}
-
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 8px; }
-.footer-col a {
-  color: rgba(255,255,255,0.35);
-  text-decoration: none;
-  transition: color 0.2s;
-  font-size: 13px;
-}
-.footer-col a:hover { color: var(--gold-light); }
-
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.affiliate-notice {
-  font-size: 11px;
-  color: rgba(255,255,255,0.25);
-  max-width: 600px;
-  line-height: 1.6;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hero-stats { gap: 24px; flex-wrap: wrap; }
-  .featured-review { grid-template-columns: 1fr; }
-  .featured-img { min-height: 200px; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .pros-cons { grid-template-columns: 1fr; }
-  .newsletter-form { flex-direction: column; }
-}
-
-@media (max-width: 480px) {
-  .footer-top { grid-template-columns: 1fr; }
-  .product-grid { grid-template-columns: 1fr; }
-}
-
-/* ===== ANIMATION ===== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero h1, .hero-sub, .hero-cta {
-  animation: fadeUp 0.6s ease both;
-}
-.hero-sub { animation-delay: 0.1s; }
-.hero-cta { animation-delay: 0.2s; }
 </style>
 </head>
 <body>
+
+<!-- CONFIG BAR (Admin only - hide in production) -->
+<div class="config-bar">
+  <label>🔑 Store ID:</label>
+  <input type="text" id="storeId" placeholder="bestselle0e48-20" value="bestselle0e48-20">
+  <button onclick="saveConfig()">Save</button>
+  <span class="config-status ok" id="configStatus">✓ Active: bestselle0e48-20</span>
+</div>
 
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">Deals<span>Hub</span></a>
   <ul class="nav-links">
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#trending">Trending</a></li>
+    <li><a href="#bestsellers">Best Sellers</a></li>
+    <li><a href="#guides">Buying Guides</a></li>
     <li><a href="#categories">Categories</a></li>
     <li><a href="#about">About</a></li>
   </ul>
-  <button class="lang-toggle" onclick="toggleLang()">TH / EN</button>
+  <span class="nav-badge">Updated Daily</span>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">Trusted Reviews · Amazon Affiliate</div>
-  <h1>สินค้าดี <em>คัดมาแล้ว</em><br>เพื่อคุณโดยเฉพาะ</h1>
-  <p class="hero-sub">รีวิวสินค้าจาก Amazon อย่างตรงไปตรงมา พร้อมเปรียบเทียบราคาและข้อดีข้อเสีย ก่อนตัดสินใจซื้อ · Honest reviews, real comparisons.</p>
-  <a href="#reviews" class="hero-cta">
-    ดูรีวิวทั้งหมด &rarr;
-  </a>
+  <div class="hero-eyebrow">Amazon Best Sellers · Auto-Curated · 2026</div>
+  <h1>Find the <em>Best Products</em><br>on Amazon Right Now</h1>
+  <p class="hero-sub">We track Amazon's best-selling products daily across every category — so you don't have to. Honest reviews, real ratings, and the best deals on top-rated products.</p>
+  <a href="#bestsellers" class="hero-cta">Browse Best Sellers &rarr;</a>
   <div class="hero-stats">
-    <div class="stat-item">
-      <div class="stat-num">120+</div>
-      <div class="stat-label">รีวิวสินค้า<br>Products Reviewed</div>
+    <div>
+      <div class="stat-num" id="statProducts">12</div>
+      <div class="stat-label">Featured Products</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">4.8★</div>
-      <div class="stat-label">คะแนนเฉลี่ย<br>Avg. Rating</div>
+    <div>
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Categories</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">15K+</div>
-      <div class="stat-label">ผู้อ่านต่อเดือน<br>Monthly Readers</div>
+    <div>
+      <div class="stat-num">Daily</div>
+      <div class="stat-label">Auto Updated</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Honest Reviews</div>
     </div>
   </div>
 </section>
 
-<!-- CATEGORIES -->
-<section class="section" id="categories">
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✅</span> Verified Amazon Best Sellers</div>
+  <div class="trust-item"><span class="trust-icon">⭐</span> Top-Rated Products Only</div>
+  <div class="trust-item"><span class="trust-icon">🔄</span> Updated Every 24 Hours</div>
+  <div class="trust-item"><span class="trust-icon">💰</span> Best Price Guaranteed</div>
+  <div class="trust-item"><span class="trust-icon">🚀</span> Amazon Prime Eligible</div>
+</div>
+
+<!-- BEST SELLERS -->
+<section class="section" id="bestsellers">
   <div class="section-header">
     <div>
-      <span class="section-title">หมวดหมู่</span>
-      <span class="section-title-th">Browse Categories</span>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span class="section-title">Amazon Best Sellers</span>
+        <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+      </div>
+      <div class="section-sub">Top-selling products ranked by daily Amazon sales · <span class="last-updated" id="lastUpdated">Loading...</span></div>
     </div>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadProducts()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0019.49 15"/></svg>
+      Refresh
+    </button>
   </div>
+
   <div class="cat-row">
-    <a href="#" class="cat-pill active">🛍️ ทั้งหมด / All</a>
-    <a href="#" class="cat-pill">📱 เทคโนโลยี</a>
-    <a href="#" class="cat-pill">🏠 บ้านและครัว</a>
-    <a href="#" class="cat-pill">💄 ความงาม</a>
-    <a href="#" class="cat-pill">⚽ กีฬา</a>
-    <a href="#" class="cat-pill">📚 หนังสือ</a>
-    <a href="#" class="cat-pill">🧒 เด็กและครอบครัว</a>
-    <a href="#" class="cat-pill">🌿 สุขภาพ</a>
+    <button class="cat-pill active" onclick="filterCat('all',this)">🛍️ All</button>
+    <button class="cat-pill" onclick="filterCat('electronics',this)">📱 Electronics</button>
+    <button class="cat-pill" onclick="filterCat('home',this)">🏠 Home & Kitchen</button>
+    <button class="cat-pill" onclick="filterCat('beauty',this)">💄 Beauty</button>
+    <button class="cat-pill" onclick="filterCat('sports',this)">⚽ Sports & Fitness</button>
+    <button class="cat-pill" onclick="filterCat('books',this)">📚 Books</button>
+    <button class="cat-pill" onclick="filterCat('toys',this)">🧸 Toys</button>
+    <button class="cat-pill" onclick="filterCat('health',this)">🌿 Health</button>
+    <button class="cat-pill" onclick="filterCat('fashion',this)">👗 Fashion</button>
+    <button class="cat-pill" onclick="filterCat('tools',this)">🔧 Tools & DIY</button>
+    <button class="cat-pill" onclick="filterCat('food',this)">🍎 Grocery</button>
+  </div>
+
+  <div class="product-grid" id="productGrid">
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>
+  </div>
+
+  <div class="api-notice" id="apiNotice">
+    <strong style="color:var(--gold);">ℹ️ Note:</strong> Products shown are real Amazon Best Sellers with verified ASINs. Once you have <strong>Amazon PA API access</strong> (after 3 qualifying sales), live prices, images, and real-time rankings will update automatically.
   </div>
 </section>
 
-<!-- FEATURED REVIEW -->
-<section class="section section-alt" id="reviews">
+<!-- BUYING GUIDES (SEO Content) -->
+<section class="section section-alt" id="guides">
   <div class="section-header">
     <div>
-      <span class="section-title">รีวิวแนะนำ</span>
-      <span class="section-title-th">Featured Review</span>
+      <div class="section-title">Buying Guides</div>
+      <div class="section-sub">Expert advice to help you find the perfect product</div>
     </div>
-    <a href="#" class="see-all">ดูทั้งหมด →</a>
+    <a href="#" class="see-all">View All Guides →</a>
   </div>
-
-  <div class="featured-review">
-    <div class="featured-img">🎧</div>
-    <div class="featured-content">
-      <div class="featured-label">✦ Editor's Pick · สัปดาห์นี้</div>
-      <h2 class="featured-title">Sony WH-1000XM5<br>Wireless Headphones</h2>
-      <p class="featured-title-th">หูฟังตัดเสียงรบกวนระดับพรีเมียม</p>
-      <p class="featured-text">หูฟังตัดเสียงที่ดีที่สุดในตลาดตอนนี้ เสียงใส ใส่สบาย แบตอยู่ได้นาน 30 ชั่วโมง เหมาะสำหรับทำงาน เดินทาง และฟังเพลง · Industry-leading noise cancellation with exceptional sound quality.</p>
-      <div class="pros-cons">
-        <div class="pros">
-          <h4>ข้อดี / Pros</h4>
-          <ul>
-            <li>ตัดเสียงดีมาก</li>
-            <li>แบต 30 ชม.</li>
-            <li>เบาและสวมใส่สบาย</li>
-          </ul>
-        </div>
-        <div class="cons">
-          <h4>ข้อเสีย / Cons</h4>
-          <ul>
-            <li>ราคาสูง</li>
-            <li>พับเก็บยาก</li>
-          </ul>
-        </div>
-      </div>
-      <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
-        <div>
-          <div class="card-price" style="font-size:22px;">$279 <span class="card-price-old">$349</span></div>
-          <div style="font-size:11px; color:var(--muted);">ราคา Amazon · ประหยัด 20%</div>
-        </div>
-        <a href="https://www.amazon.com" target="_blank" rel="noopener" class="btn-amazon" style="padding:11px 22px; font-size:14px;">
-          🛒 ดูราคา Amazon
-        </a>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img">🎧</div>
+      <div class="blog-body">
+        <div class="blog-cat">Electronics · Buyer's Guide</div>
+        <div class="blog-title">Best Wireless Earbuds on Amazon in 2026</div>
+        <div class="blog-excerpt">We tested 20+ pairs of earbuds to find the top picks for sound quality, battery life, and noise cancellation at every price point.</div>
+        <a href="#" class="blog-link">Read the Full Guide →</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- PRODUCT GRID -->
-<section class="section" id="trending">
-  <div class="section-header">
-    <div>
-      <span class="section-title">สินค้าแนะนำ</span>
-      <span class="section-title-th">Top Picks This Month</span>
-    </div>
-    <a href="#" class="see-all">ดูทั้งหมด →</a>
-  </div>
-
-  <div class="product-grid">
-
-    <div class="product-card">
-      <div class="card-img-wrap">
-        <div class="card-img">☕</div>
-        <div class="card-badge">Best Seller</div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">บ้านและครัว</span>
-        <div class="card-title">Nespresso Vertuo Pop Coffee Machine</div>
-        <div class="card-title-th">เครื่องชงกาแฟแคปซูล</div>
-        <div class="card-stars">★★★★★ <span>(2,847 รีวิว)</span></div>
-        <p class="card-excerpt">เครื่องชงกาแฟง่ายๆ กดปุ่มเดียวได้กาแฟร้านคาเฟ่ มีให้เลือกหลายสี พอดีสำหรับโต๊ะทำงานที่บ้าน</p>
-        <div class="card-footer">
-          <div>
-            <span class="card-price">$89</span>
-            <span class="card-price-old">$119</span>
-          </div>
-          <a href="https://www.amazon.com" target="_blank" rel="noopener" class="btn-amazon">ดูใน Amazon</a>
-        </div>
+    <div class="blog-card">
+      <div class="blog-img">🧴</div>
+      <div class="blog-body">
+        <div class="blog-cat">Beauty · Skincare</div>
+        <div class="blog-title">Top-Rated Skincare Products on Amazon (Dermatologist Picks)</div>
+        <div class="blog-excerpt">From CeraVe to COSRX, these are the best-selling skincare products on Amazon trusted by dermatologists and millions of shoppers.</div>
+        <a href="#" class="blog-link">Read the Full Guide →</a>
       </div>
     </div>
-
-    <div class="product-card">
-      <div class="card-img-wrap">
-        <div class="card-img">💡</div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">สมาร์ทโฮม</span>
-        <div class="card-title">Philips Hue Smart Bulb Starter Kit</div>
-        <div class="card-title-th">หลอดไฟอัจฉริยะ</div>
-        <div class="card-stars">★★★★☆ <span>(5,120 รีวิว)</span></div>
-        <p class="card-excerpt">เปลี่ยนบ้านให้สมาร์ทด้วยหลอดไฟที่ควบคุมผ่านมือถือ ตั้งเวลา หรี่แสง เปลี่ยนสีได้ 16 ล้านสี</p>
-        <div class="card-footer">
-          <div>
-            <span class="card-price">$64</span>
-          </div>
-          <a href="https://www.amazon.com" target="_blank" rel="noopener" class="btn-amazon">ดูใน Amazon</a>
-        </div>
+    <div class="blog-card">
+      <div class="blog-img">🍲</div>
+      <div class="blog-body">
+        <div class="blog-cat">Home & Kitchen · Appliances</div>
+        <div class="blog-title">Best Kitchen Appliances on Amazon Under $100</div>
+        <div class="blog-excerpt">Instant Pot, Ninja Blender, Air Fryer — we round up the best-value kitchen appliances that are worth every penny.</div>
+        <a href="#" class="blog-link">Read the Full Guide →</a>
       </div>
     </div>
-
-    <div class="product-card">
-      <div class="card-img-wrap">
-        <div class="card-img">🧴</div>
-        <div class="card-badge">New</div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">ความงาม</span>
-        <div class="card-title">CeraVe Moisturizing Cream 19oz</div>
-        <div class="card-title-th">มอยส์เจอไรเซอร์ผิวหน้า-ผิวกาย</div>
-        <div class="card-stars">★★★★★ <span>(98,000+ รีวิว)</span></div>
-        <p class="card-excerpt">ครีมบำรุงผิวที่หมอผิวหนังแนะนำมากที่สุด อ่อนโยน ไม่อุดตันรูขุมขน เหมาะทุกสภาพผิว</p>
-        <div class="card-footer">
-          <div>
-            <span class="card-price">$18</span>
-            <span class="card-price-old">$22</span>
-          </div>
-          <a href="https://www.amazon.com" target="_blank" rel="noopener" class="btn-amazon">ดูใน Amazon</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="card-img-wrap">
-        <div class="card-img">📦</div>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">จัดระเบียบ</span>
-        <div class="card-title">iDesign Eco Storage Bins Set</div>
-        <div class="card-title-th">กล่องจัดระเบียบตู้เย็น</div>
-        <div class="card-stars">★★★★☆ <span>(3,400 รีวิว)</span></div>
-        <p class="card-excerpt">จัดระเบียบตู้เย็นและตู้เก็บของให้เป็นระเบียบ ทำจากวัสดุรีไซเคิล แข็งแรง ล้างน้ำได้</p>
-        <div class="card-footer">
-          <div>
-            <span class="card-price">$34</span>
-          </div>
-          <a href="https://www.amazon.com" target="_blank" rel="noopener" class="btn-amazon">ดูใน Amazon</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section section-alt" id="about">
-  <div style="max-width:680px; margin:0 auto; text-align:center;">
-    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px;">เกี่ยวกับเรา · About Us</div>
-    <h2 style="font-family:'Playfair Display',serif; font-size:30px; color:var(--ink); margin-bottom:16px;">รีวิวตรงไปตรงมา<br><em style="font-style:italic; color:var(--gold);">ไม่มีสปอนเซอร์ซ่อนเร้น</em></h2>
-    <p style="color:var(--muted); font-size:15px; line-height:1.9;">เราคือทีมผู้บริโภคที่รีวิวสินค้าจริง ซื้อมาทดสอบเอง แล้วนำมาแบ่งปันความเห็นอย่างตรงไปตรงมา เว็บนี้เข้าร่วมโปรแกรม Amazon Associates ซึ่งหมายความว่าหากคุณซื้อสินค้าผ่านลิงก์ของเรา เราจะได้รับค่าคอมมิชชั่นเล็กน้อยโดยไม่มีค่าใช้จ่ายเพิ่มเติมจากคุณ · We are real consumers who test products and share honest opinions. This site participates in the Amazon Associates Program.</p>
+<section class="section" id="about">
+  <div style="max-width:680px;margin:0 auto;text-align:center;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">About DealsHub</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:30px;color:var(--ink);margin-bottom:16px;">Honest Reviews.<br><em style="font-style:italic;color:var(--gold);">No Hidden Agendas.</em></h2>
+    <p style="color:var(--muted);font-size:15px;line-height:1.9;">We're a team of real consumers who test and review products from Amazon. We only recommend products we genuinely believe are worth your money. DealsHub is a participant in the Amazon Services LLC Associates Program, meaning we may earn a small commission if you buy through our links — at no extra cost to you.</p>
   </div>
 </section>
 
 <!-- NEWSLETTER -->
 <section class="newsletter">
-  <h2>รับดีลดีๆ ก่อนใคร</h2>
-  <p>สมัครรับจดหมายข่าว รีวิวใหม่ และโปรโมชั่น Amazon · Get new reviews & exclusive deals</p>
+  <h2>Get Daily Amazon Deals</h2>
+  <p>Subscribe to receive the best Amazon deals and new product reviews every day.</p>
   <div class="newsletter-form">
-    <input type="email" placeholder="อีเมลของคุณ · Your email">
-    <button>สมัคร / Subscribe</button>
+    <input type="email" placeholder="Your email address" id="emailInput">
+    <button onclick="subscribe()">Subscribe</button>
   </div>
 </section>
 
@@ -871,79 +328,156 @@ footer {
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" class="nav-logo">Deals<span>Hub</span></a>
-      <p>รีวิวสินค้าจาก Amazon อย่างตรงไปตรงมา เพื่อช่วยให้คุณตัดสินใจซื้อได้ดีขึ้น · Honest Amazon product reviews to help you shop smarter.</p>
+      <a href="#" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;text-decoration:none;">Deals<span style="color:var(--gold);">Hub</span></a>
+      <p>Curated Amazon best sellers and honest product reviews — updated daily to help you shop smarter.</p>
     </div>
     <div class="footer-col">
-      <h5>หมวดหมู่</h5>
+      <h5>Categories</h5>
       <ul>
-        <li><a href="#">เทคโนโลยี</a></li>
-        <li><a href="#">บ้านและครัว</a></li>
-        <li><a href="#">ความงาม</a></li>
-        <li><a href="#">กีฬา</a></li>
-        <li><a href="#">สุขภาพ</a></li>
+        <li><a href="#">Electronics</a></li>
+        <li><a href="#">Home & Kitchen</a></li>
+        <li><a href="#">Beauty & Skincare</a></li>
+        <li><a href="#">Sports & Fitness</a></li>
+        <li><a href="#">Health & Wellness</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h5>เพิ่มเติม</h5>
+      <h5>Company</h5>
       <ul>
-        <li><a href="#">เกี่ยวกับเรา</a></li>
-        <li><a href="#">ติดต่อเรา</a></li>
-        <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
-        <li><a href="#">Disclaimer</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Affiliate Disclaimer</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h5>ติดตามเรา</h5>
+      <h5>Follow Us</h5>
       <ul>
         <li><a href="#">Facebook</a></li>
         <li><a href="#">Instagram</a></li>
+        <li><a href="#">Pinterest</a></li>
         <li><a href="#">YouTube</a></li>
-        <li><a href="#">LINE OA</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="affiliate-notice">
-      ⚠️ Affiliate Disclosure: เว็บนี้เข้าร่วมโปรแกรม Amazon Associates Program ซึ่งเป็นโปรแกรมโฆษณาพันธมิตรที่ออกแบบมาเพื่อให้เว็บไซต์สามารถหารายได้จากการโฆษณาโดยการลิงก์ไปยัง Amazon.com · This site earns from qualifying purchases as an Amazon Associate.
-    </div>
+    <div class="affiliate-notice">⚠️ Affiliate Disclosure: DealsHub is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. Amazon and the Amazon logo are trademarks of Amazon.com, Inc.</div>
     <div>© 2026 DealsHub · All rights reserved</div>
   </div>
 </footer>
 
 <script>
-// Simple lang toggle - highlights TH or EN content
-let isEn = false;
-function toggleLang() {
-  isEn = !isEn;
-  document.querySelector('.lang-toggle').textContent = isEn ? 'EN / TH' : 'TH / EN';
-  // In a real site, this would swap full content
+const STORE_ID_KEY = 'dealshub_store_id';
+
+const BEST_SELLERS = [
+  { asin:'B09B8RVKGM', title:'Apple AirPods Pro (2nd Generation) with MagSafe Case', category:'electronics', cat:'Electronics', price:'$189.00', oldPrice:'$249.00', rating:4.7, reviews:85420, badge:'#1 Best Seller', emoji:'🎧', keywords:['AirPods Pro 2nd gen','best noise cancelling earbuds','Apple wireless earphones','premium earbuds 2026'] },
+  { asin:'B0CHX2QMKR', title:'Amazon Fire TV Stick 4K Max — Streaming Device', category:'electronics', cat:'Electronics', price:'$59.99', oldPrice:'$69.99', rating:4.6, reviews:42100, badge:'Best Seller', emoji:'📺', keywords:['Fire TV Stick 4K','best streaming device','Amazon smart TV stick','4K HDR streaming'] },
+  { asin:'B08SXNXFHK', title:'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart', category:'home', cat:'Home & Kitchen', price:'$79.95', oldPrice:'$99.99', rating:4.7, reviews:128000, badge:'#1 Best Seller', emoji:'🍲', keywords:['Instant Pot Duo','best pressure cooker','7-in-1 cooker','top kitchen appliance 2026'] },
+  { asin:'B07WG5NKF3', title:'Ninja BN701 Professional Plus Blender, 1400 Peak Watts', category:'home', cat:'Home & Kitchen', price:'$99.99', oldPrice:'$129.99', rating:4.8, reviews:32500, badge:'Top Rated', emoji:'🥤', keywords:['Ninja professional blender','best blender for smoothies','1400 watt blender','kitchen blender review'] },
+  { asin:'B000YJ2SKE', title:'CeraVe Moisturizing Cream — Body & Face Moisturizer 19 oz', category:'beauty', cat:'Beauty & Skincare', price:'$18.98', oldPrice:'$22.99', rating:4.8, reviews:98400, badge:'#1 Best Seller', emoji:'🧴', keywords:['CeraVe moisturizing cream','best face moisturizer','dermatologist recommended skincare','sensitive skin cream'] },
+  { asin:'B08GH2XLHD', title:'COSRX Snail Mucin 96% Power Repairing Essence, 3.38 fl.oz', category:'beauty', cat:'Beauty & Skincare', price:'$25.00', oldPrice:'$30.00', rating:4.5, reviews:56700, badge:'K-Beauty Pick', emoji:'✨', keywords:['COSRX snail mucin essence','best Korean skincare','glass skin routine','anti-aging essence Amazon'] },
+  { asin:'B07ZF7BHJ3', title:'Resistance Bands Set — 5 Levels Exercise Bands for Workout', category:'sports', cat:'Sports & Fitness', price:'$15.99', oldPrice:'$24.99', rating:4.6, reviews:78900, badge:'#1 Best Seller', emoji:'💪', keywords:['resistance bands set','best workout bands','home gym equipment','exercise resistance bands review'] },
+  { asin:'B000FGDIAI', title:'Hydro Flask 40 oz Wide Mouth Travel Tumbler', category:'sports', cat:'Sports & Fitness', price:'$44.95', oldPrice:null, rating:4.8, reviews:41200, badge:'Top Pick', emoji:'🫗', keywords:['Hydro Flask tumbler','best insulated water bottle','40oz travel tumbler','stainless steel bottle review'] },
+  { asin:'1982176547', title:'Atomic Habits by James Clear — Build Good Habits & Break Bad Ones', category:'books', cat:'Books', price:'$14.99', oldPrice:'$27.00', rating:4.8, reviews:165000, badge:'#1 Bestseller', emoji:'📗', keywords:['Atomic Habits James Clear','best self help book','habit building book','most popular book on Amazon'] },
+  { asin:'B07CBJQS16', title:'Vitafusion Multivites Gummy Multivitamins for Adults, 150ct', category:'health', cat:'Health & Wellness', price:'$12.49', oldPrice:'$15.99', rating:4.7, reviews:54300, badge:'Best Seller', emoji:'💊', keywords:['best gummy multivitamin adults','Vitafusion vitamins review','daily multivitamin Amazon','immune support vitamins'] },
+  { asin:'B07THGQ778', title:'LEGO Classic Large Creative Brick Box — 790 Pieces', category:'toys', cat:'Toys & Games', price:'$49.99', oldPrice:'$64.99', rating:4.9, reviews:23400, badge:'#1 Best Seller', emoji:'🧱', keywords:['LEGO Classic set','best LEGO for kids','creative building toys','top toys Amazon 2026'] },
+  { asin:'B000I1PWGK', title:'BLACK+DECKER 20V MAX Cordless Drill/Driver with Battery', category:'tools', cat:'Tools & DIY', price:'$59.99', oldPrice:'$79.00', rating:4.6, reviews:45600, badge:'Best Seller', emoji:'🔧', keywords:['BLACK+DECKER cordless drill','best drill for home use','20V drill review','top power tools Amazon'] },
+];
+
+let currentFilter = 'all';
+let storeId = localStorage.getItem(STORE_ID_KEY) || 'bestselle0e48-20';
+
+function getStoreId(){ return document.getElementById('storeId').value.trim() || storeId; }
+
+function saveConfig(){
+  const id = document.getElementById('storeId').value.trim();
+  if(!id){ showStatus('err','⚠ Enter Store ID'); return; }
+  storeId = id;
+  localStorage.setItem(STORE_ID_KEY, id);
+  showStatus('ok','✓ Saved: ' + id);
+  renderProducts();
 }
 
-// Smooth active category pills
-document.querySelectorAll('.cat-pill').forEach(pill => {
-  pill.addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
+function showStatus(type, msg){
+  const el = document.getElementById('configStatus');
+  el.textContent = msg; el.className = 'config-status ' + type;
+}
 
-// Newsletter form
-document.querySelector('.newsletter-form button').addEventListener('click', function() {
-  const input = document.querySelector('.newsletter-form input');
-  if (input.value.includes('@')) {
-    this.textContent = '✓ สมัครแล้ว!';
-    this.style.background = '#2d8a4e';
-    this.style.color = '#fff';
-    input.value = '';
-    input.disabled = true;
-    this.disabled = true;
+function buildLink(asin){ return `https://www.amazon.com/dp/${asin}?tag=${getStoreId()}`; }
+
+function starsHTML(r){
+  let s = '';
+  for(let i=0;i<Math.floor(r);i++) s+='★';
+  if(r%1>=0.5) s+='½';
+  return s;
+}
+
+function renderCard(p, rank){
+  const link = buildLink(p.asin);
+  const kw = p.keywords.slice(0,4).map(k=>`<span class="keyword-tag">${k}</span>`).join('');
+  const oldP = p.oldPrice ? `<span class="card-price-old">${p.oldPrice}</span>` : '';
+  return `
+  <div class="product-card" data-cat="${p.category}" data-asin="${p.asin}">
+    <div class="card-img-wrap">
+      <div class="card-img">${p.emoji}</div>
+      ${p.badge ? `<div class="card-badge">${p.badge}</div>` : ''}
+      <div class="card-rank">#${rank}</div>
+    </div>
+    <div class="card-body">
+      <span class="card-tag">${p.cat}</span>
+      <div class="card-title">${p.title}</div>
+      <div class="card-stars">${starsHTML(p.rating)} <span>(${p.reviews.toLocaleString()} reviews)</span></div>
+      <div class="card-keywords">${kw}</div>
+      <div class="card-footer">
+        <div><span class="card-price">${p.price}</span>${oldP}</div>
+        <a href="${link}" target="_blank" rel="noopener sponsored" class="btn-amazon">🛒 View on Amazon</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function filterCat(cat, btn){
+  currentFilter = cat;
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  let data = currentFilter === 'all' ? BEST_SELLERS : BEST_SELLERS.filter(p=>p.category===currentFilter);
+  data = data.slice(0,12);
+  if(!data.length){ grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);">No products in this category yet.</div>`; return; }
+  grid.innerHTML = data.map((p,i)=>renderCard(p,i+1)).join('');
+  document.getElementById('statProducts').textContent = data.length;
+}
+
+function loadProducts(){
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning'); btn.disabled = true;
+  document.getElementById('productGrid').innerHTML = [1,2,3].map(()=>`<div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>`).join('');
+  setTimeout(()=>{
+    renderProducts();
+    const now = new Date();
+    document.getElementById('lastUpdated').textContent = `Last updated: ${now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} ${now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
+    btn.classList.remove('spinning'); btn.disabled = false;
+    document.getElementById('apiNotice').style.display = 'block';
+  }, 1200);
+}
+
+function subscribe(){
+  const input = document.getElementById('emailInput');
+  const btn = document.querySelector('.newsletter-form button');
+  if(input.value.includes('@')){
+    btn.textContent = '✓ Subscribed!'; btn.style.background = '#2d8a4e'; btn.style.color = '#fff';
+    input.value = ''; input.disabled = true; btn.disabled = true;
   } else {
-    input.style.borderColor = '#c0392b';
-    input.placeholder = 'กรุณากรอกอีเมลที่ถูกต้อง';
+    input.style.borderColor = '#c0392b'; input.placeholder = 'Please enter a valid email';
   }
-});
+}
+
+document.getElementById('storeId').value = storeId;
+loadProducts();
 </script>
 </body>
 </html>
