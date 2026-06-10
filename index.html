@@ -65,12 +65,190 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--text);li
 }
 .btn-save { background: var(--gold); color: var(--ink); }
 .btn-save:hover { background: var(--gold-light); }
-.btn-toggle { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15) !important; border: none; }
+.btn-toggle { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15) !important; }
 .btn-toggle:hover { background: rgba(255,255,255,0.14); }
-.btn-export { background: rgba(45,138,78,0.2); color: #6ee7b7; border: 1px solid rgba(45,138,78,0.35) !important; border: none; }
-.btn-import { background: rgba(59,63,140,0.25); color: #a5b4fc; border: 1px solid rgba(59,63,140,0.4) !important; border: none; }
+.btn-export { background: rgba(45,138,78,0.2); color: #6ee7b7; border: 1px solid rgba(45,138,78,0.35) !important; }
+.btn-import { background: rgba(59,63,140,0.25); color: #a5b4fc; border: 1px solid rgba(59,63,140,0.4) !important; }
+.btn-danger { background: rgba(192,57,43,0.2); color: #fca5a5; border: 1px solid rgba(192,57,43,0.35) !important; }
 .config-status { font-size: 11px; margin-left: auto; }
-.config-status.ok { color: #6ee7b7; } .config-status.err { color: #fca5a5; }
+.config-status.ok { color: #6ee7b7; }
+.config-status.err { color: #fca5a5; }
+.config-status.loading { color: var(--gold); }
+
+/* SUPABASE CONFIG BAR */
+.supabase-bar {
+  background: rgba(0,0,0,0.3);
+  padding: 6px 5%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.supabase-bar label { color: rgba(255,255,255,0.35); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.supabase-bar input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #a5b4fc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  width: 300px;
+  outline: none;
+}
+.supabase-bar input:focus { border-color: var(--gold); }
+.supabase-status { font-size: 10px; font-family: 'JetBrains Mono', monospace; }
+.supabase-status.ok { color: #6ee7b7; }
+.supabase-status.err { color: #fca5a5; }
+.supabase-status.idle { color: rgba(255,255,255,0.3); }
+
+/* ADD PRODUCT FORM */
+#addProductPanel {
+  display: none;
+  padding: 0 5% 20px;
+}
+#addProductPanel.open { display: block; }
+
+.add-product-form {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 12px;
+}
+.form-title {
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { color: rgba(255,255,255,0.4); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.form-group input, .form-group select, .form-group textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+.form-group select option { background: #0d1120; }
+.form-group textarea { resize: vertical; min-height: 64px; }
+
+/* IMAGE UPLOAD ZONE */
+.image-upload-zone {
+  border: 2px dashed rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+  position: relative;
+}
+.image-upload-zone:hover, .image-upload-zone.drag-over {
+  border-color: var(--gold);
+  background: rgba(201,151,42,0.05);
+}
+.image-upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.upload-icon { font-size: 32px; margin-bottom: 8px; }
+.upload-text { color: rgba(255,255,255,0.4); font-size: 12px; }
+.upload-text strong { color: var(--gold); }
+.image-preview {
+  display: none;
+  margin-top: 12px;
+  position: relative;
+  width: 120px;
+  margin: 12px auto 0;
+}
+.image-preview img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.image-preview .remove-img {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.upload-progress {
+  display: none;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+}
+.upload-progress-bar {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width 0.3s;
+  border-radius: 4px;
+}
+.upload-status { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 6px; text-align: center; }
+
+.form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.btn-submit {
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+.btn-submit:hover { background: var(--gold-light); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-cancel {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+.btn-cancel:hover { background: rgba(255,255,255,0.1); }
 
 /* LINK MANAGER TABLE */
 #linkManager {
@@ -110,7 +288,6 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--text);li
   overflow: hidden;
   overflow-x: auto;
 }
-
 table.lm-table {
   width: 100%;
   border-collapse: collapse;
@@ -133,7 +310,6 @@ table.lm-table {
 }
 .lm-table tbody tr:last-child { border-bottom: none; }
 .lm-table tbody tr:hover { background: rgba(255,255,255,0.03); }
-
 .lm-table td { padding: 8px 12px; vertical-align: middle; }
 .td-rank { color: var(--gold); font-weight: 700; font-size: 11px; width: 36px; }
 .td-emoji { font-size: 20px; width: 36px; text-align: center; }
@@ -142,7 +318,6 @@ table.lm-table {
 .td-price { color: #fca5a5; white-space: nowrap; }
 .td-status { white-space: nowrap; }
 
-/* LINK INPUT FIELD */
 .link-input-wrap { display: flex; align-items: center; gap: 6px; }
 .link-input {
   background: rgba(255,255,255,0.06);
@@ -158,7 +333,6 @@ table.lm-table {
 }
 .link-input:focus { border-color: var(--gold); background: rgba(201,151,42,0.05); }
 .link-input.has-link { border-color: rgba(45,138,78,0.5); color: #6ee7b7; }
-.link-input.has-link:focus { border-color: var(--green); }
 
 .btn-test {
   background: transparent;
@@ -172,6 +346,18 @@ table.lm-table {
   white-space: nowrap;
 }
 .btn-test:hover { border-color: var(--gold); color: var(--gold); }
+.btn-del {
+  background: transparent;
+  border: 1px solid rgba(192,57,43,0.3);
+  color: rgba(252,165,165,0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-del:hover { border-color: #c0392b; color: #fca5a5; background: rgba(192,57,43,0.1); }
 
 .status-badge {
   display: inline-flex;
@@ -183,10 +369,10 @@ table.lm-table {
   font-weight: 700;
   white-space: nowrap;
 }
+.status-badge.db { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
 .status-badge.custom { background: rgba(45,138,78,0.15); color: #6ee7b7; border: 1px solid rgba(45,138,78,0.3); }
 .status-badge.auto { background: rgba(201,151,42,0.12); color: var(--gold); border: 1px solid rgba(201,151,42,0.25); }
 
-/* BULK ACTIONS BAR */
 .bulk-bar {
   display: flex;
   align-items: center;
@@ -241,14 +427,13 @@ table.lm-table {
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
+  max-width: 360px;
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 .toast.success { border-color: var(--green); }
 .toast.error { border-color: #c0392b; }
 
-/* ══════════════════════════════════════
-   NAV
-══════════════════════════════════════ */
+/* NAV */
 nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:2px solid var(--gold);}
 .nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;text-decoration:none;}
 .nav-logo span{color:var(--gold);}
@@ -318,6 +503,12 @@ nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display
 .btn-amazon{background:var(--gold);color:var(--ink);padding:7px 13px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
 .btn-amazon:hover{background:var(--gold-light);}
 
+/* EMPTY STATE */
+.empty-state{grid-column:1/-1;text-align:center;padding:64px 32px;color:var(--muted);}
+.empty-state-icon{font-size:48px;margin-bottom:16px;}
+.empty-state h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);margin-bottom:8px;}
+.empty-state p{font-size:14px;line-height:1.7;}
+
 /* SKELETON */
 .skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -372,6 +563,7 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
   .trust-bar{gap:16px;}
   .hero-stats{gap:24px;}
   .link-input{width:180px;}
+  .form-grid{grid-template-columns:1fr;}
 }
 @media(max-width:480px){
   .footer-top{grid-template-columns:1fr;}
@@ -383,19 +575,21 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
 <body>
 
 <!-- ══════════════════════════════════════
-     ADMIN PANEL — ซ่อน/แสดงด้วยปุ่ม Toggle
+     ADMIN PANEL
 ══════════════════════════════════════ -->
 <div id="adminPanel">
 
-  <!-- Top Bar: Store ID & ปุ่มควบคุม -->
+  <!-- Top Bar -->
   <div class="admin-topbar">
     <label>🔑 Store ID:</label>
     <input type="text" id="storeId" placeholder="bestselle0e48-20" value="bestselle0e48-20">
     <button class="btn-admin btn-save" onclick="saveStoreId()">บันทึก</button>
+    <button class="btn-admin btn-toggle" onclick="toggleAddProduct()">
+      ➕ <span id="addProductLabel">เพิ่มสินค้า</span>
+    </button>
     <button class="btn-admin btn-toggle" onclick="toggleLinkManager()">
       📋 <span id="toggleLabel">เปิด Link Manager</span>
     </button>
-    <button class="btn-admin btn-export" onclick="exportHTML()" style="background:rgba(201,151,42,0.2);color:var(--gold-light);border:1px solid rgba(201,151,42,0.3)!important;">⬇ Export HTML (อัปโหลด GitHub)</button>
     <button class="btn-admin btn-export" onclick="exportLinks()">⬇ Export JSON</button>
     <label style="cursor:pointer;">
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importLinks(event)">
@@ -404,25 +598,135 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
     <span class="config-status ok" id="configStatus">✓ Active: bestselle0e48-20</span>
   </div>
 
+  <!-- Supabase Config Bar -->
+  <div class="supabase-bar">
+    <label>⚡ Supabase URL:</label>
+    <input type="text" id="sbUrl" placeholder="https://xxxx.supabase.co" value="https://kqaawlcnembvgcjgsinb.supabase.co">
+    <label>🔑 Anon Key:</label>
+    <input type="password" id="sbKey" placeholder="eyJ... (Anon Public Key)">
+    <button class="btn-admin btn-save" style="font-size:10px;padding:4px 10px;" onclick="saveSupabaseConfig()">เชื่อม</button>
+    <span class="supabase-status idle" id="sbStatus">⬤ ยังไม่ได้เชื่อม</span>
+    <button class="btn-admin" style="font-size:10px;padding:4px 10px;background:rgba(99,102,241,0.2);color:#a5b4fc;border:1px solid rgba(99,102,241,0.3)!important;" onclick="syncFromSupabase()">🔄 โหลดจาก Supabase</button>
+    <button class="btn-admin btn-save" style="font-size:10px;padding:4px 10px;" onclick="pushToSupabase()">⬆ Push ทั้งหมดไป Supabase</button>
+  </div>
+
+  <!-- ADD PRODUCT FORM -->
+  <div id="addProductPanel">
+    <div class="add-product-form">
+      <div class="form-title">➕ เพิ่มสินค้าใหม่</div>
+
+      <!-- Image Upload -->
+      <div style="margin-bottom:16px;">
+        <div style="color:rgba(255,255,255,0.4);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🖼️ รูปสินค้า (อัปโหลดไป Cloudinary)</div>
+        <div class="image-upload-zone" id="uploadZone" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+          <input type="file" id="imageFile" accept="image/*" onchange="handleImageSelect(event)">
+          <div id="uploadPlaceholder">
+            <div class="upload-icon">☁️</div>
+            <div class="upload-text">
+              <strong>คลิกหรือลากรูปมาวาง</strong><br>
+              อัปโหลดตรงไป Cloudinary · PNG, JPG, WEBP ขนาดไม่เกิน 10MB
+            </div>
+          </div>
+          <div class="image-preview" id="imagePreviewWrap">
+            <img id="imagePreviewImg" src="" alt="preview">
+            <button class="remove-img" onclick="removeImage(event)">✕</button>
+          </div>
+        </div>
+        <div class="upload-progress" id="uploadProgress">
+          <div class="upload-progress-bar" id="uploadProgressBar"></div>
+        </div>
+        <div class="upload-status" id="uploadStatus"></div>
+        <input type="hidden" id="uploadedImageUrl" value="">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>ASIN / รหัสสินค้า *</label>
+          <input type="text" id="fAsin" placeholder="B09B8RVKGM">
+        </div>
+        <div class="form-group">
+          <label>ชื่อสินค้า *</label>
+          <input type="text" id="fTitle" placeholder="Apple AirPods Pro (2nd Generation)">
+        </div>
+        <div class="form-group">
+          <label>หมวดหมู่</label>
+          <select id="fCategory">
+            <option value="electronics">📱 Electronics</option>
+            <option value="home">🏠 Home & Kitchen</option>
+            <option value="beauty">💄 Beauty</option>
+            <option value="sports">⚽ Sports & Fitness</option>
+            <option value="books">📚 Books</option>
+            <option value="toys">🧸 Toys</option>
+            <option value="health">🌿 Health</option>
+            <option value="fashion">👗 Fashion</option>
+            <option value="tools">🔧 Tools & DIY</option>
+            <option value="food">🍎 Grocery</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ราคา</label>
+          <input type="text" id="fPrice" placeholder="$189.00">
+        </div>
+        <div class="form-group">
+          <label>ราคาเดิม (ถ้ามี)</label>
+          <input type="text" id="fOldPrice" placeholder="$249.00">
+        </div>
+        <div class="form-group">
+          <label>Badge</label>
+          <input type="text" id="fBadge" placeholder="#1 Best Seller">
+        </div>
+        <div class="form-group">
+          <label>Rating (1-5)</label>
+          <input type="number" id="fRating" placeholder="4.7" min="1" max="5" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>จำนวน Reviews</label>
+          <input type="number" id="fReviews" placeholder="85420">
+        </div>
+        <div class="form-group">
+          <label>Rank No.</label>
+          <input type="number" id="fRank" placeholder="1">
+        </div>
+        <div class="form-group">
+          <label>Emoji (fallback)</label>
+          <input type="text" id="fEmoji" placeholder="🎧">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>ลิงค์สินค้า Amazon (affiliate link)</label>
+          <input type="url" id="fLink" placeholder="https://www.amazon.com/dp/B09B8RVKGM?tag=bestselle0e48-20">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>Keywords (คั่นด้วย comma)</label>
+          <textarea id="fKeywords" placeholder="AirPods Pro 2nd gen, best noise cancelling earbuds, Apple wireless earphones"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-submit" id="submitBtn" onclick="submitProduct()">
+          💾 บันทึกสินค้า (Supabase + แสดงบนหน้าเว็บ)
+        </button>
+        <button class="btn-cancel" onclick="toggleAddProduct()">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+
   <!-- LINK MANAGER TABLE -->
   <div id="linkManager">
     <div class="lm-header">
       <div>
         <div class="lm-title">📦 Product Link Manager</div>
-        <div class="lm-hint">ใส่ลิงค์สินค้าโดยตรง — ถ้าไม่ใส่จะใช้ Amazon ASIN อัตโนมัติ</div>
+        <div class="lm-hint">ข้อมูลโหลดจาก Supabase — แก้ลิงค์แล้วกด "บันทึกไป Supabase"</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <input class="lm-search" type="text" placeholder="🔍 ค้นหาสินค้า..." oninput="filterTable(this.value)">
-        <button class="btn-admin btn-save" onclick="clearAllLinks()" style="background:rgba(192,57,43,0.2);color:#fca5a5;">🗑 ล้างลิงค์ทั้งหมด</button>
+        <button class="btn-admin btn-danger" onclick="clearAllLinks()">🗑 ล้างทั้งหมด</button>
       </div>
     </div>
 
-    <!-- Bulk Tag Override -->
     <div class="bulk-bar">
       <span class="bulk-label">แทนที่ Tag ทั้งหมด:</span>
-      <input class="bulk-input" type="text" id="bulkTag" placeholder="tag=YOUR-TAG-20 (ใส่แค่ tag parameter)">
+      <input class="bulk-input" type="text" id="bulkTag" placeholder="tag=YOUR-TAG-20">
       <button class="btn-admin btn-save" onclick="applyBulkTag()">ใช้กับทุกลิงค์</button>
-      <span class="bulk-label" style="margin-left:8px;">หรือตั้งค่า Store ID ด้านบนเพื่อใช้ Amazon auto-link</span>
     </div>
 
     <div class="lm-table-wrap">
@@ -434,33 +738,26 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
             <th>สินค้า</th>
             <th>หมวด</th>
             <th>ราคา</th>
-            <th>สถานะ</th>
-            <th style="min-width:260px;">🔗 ลิงค์สินค้า <span style="color:rgba(255,255,255,0.25);font-weight:400;">(tag ติดอัตโนมัติ)</span></th>
-            <th style="min-width:260px;">🖼️ URL รูปภาพ <span style="color:rgba(255,255,255,0.25);font-weight:400;">(ImgBB/Imgur/Cloudinary)</span></th>
-            <th>ทดสอบ</th>
+            <th>แหล่งข้อมูล</th>
+            <th style="min-width:260px;">🔗 ลิงค์ Affiliate</th>
+            <th style="min-width:260px;">🖼️ URL รูปภาพ</th>
+            <th>จัดการ</th>
           </tr>
         </thead>
-        <tbody id="linkTableBody">
-          <!-- rows จะถูก render โดย JS -->
-        </tbody>
+        <tbody id="linkTableBody"></tbody>
       </table>
     </div>
 
-    <div style="margin-top:10px;padding:10px 14px;background:rgba(59,63,140,0.15);border:1px solid rgba(59,63,140,0.3);border-radius:6px;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.8;">
-      💡 <strong style="color:rgba(255,255,255,0.6);">รูปสินค้า:</strong>
-      Amazon บล็อกการดึงรูปตรงๆ — ให้ upload รูปไปที่
-      <a href="https://imgbb.com" target="_blank" style="color:var(--gold);">imgbb.com</a> หรือ
-      <a href="https://imgur.com" target="_blank" style="color:var(--gold);">imgur.com</a>
-      แล้ว copy "Direct link" มาวางในช่อง URL รูปภาพ
+    <div style="margin-top:10px;padding:10px 14px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:6px;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.8;">
+      💡 <strong style="color:rgba(255,255,255,0.6);">วิธีใช้:</strong>
+      แก้ไขลิงค์ในตาราง แล้วกด
+      <strong style="color:var(--gold);">"บันทึกไป Supabase"</strong> เพื่อบันทึกถาวรใน database
       &nbsp;|&nbsp;
-      <strong style="color:rgba(255,255,255,0.6);">บันทึกถาวร:</strong> กด "Export HTML" แล้ว upload ไฟล์ index.html ทับใน GitHub repository
+      รูปสินค้าอัปโหลดผ่าน Cloudinary (ปุ่ม "เพิ่มสินค้า" ด้านบน)
     </div>
 
-    <button class="lm-save-all" onclick="saveAllLinks()" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);margin-bottom:8px;">
-      👁 ดูตัวอย่างบนหน้าเว็บ (ชั่วคราว)
-    </button>
-    <button class="lm-save-all" onclick="exportHTML()">
-      ⬇ Export HTML → Upload ทับ GitHub (บันทึกถาวร)
+    <button class="lm-save-all" onclick="saveAllToSupabase()">
+      💾 บันทึกทั้งหมดไป Supabase
     </button>
   </div>
 
@@ -485,7 +782,7 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
   <p class="hero-sub">We track Amazon's best-selling products daily across every category — so you don't have to. Honest reviews, real ratings, and the best deals on top-rated products.</p>
   <a href="#bestsellers" class="hero-cta">Browse Best Sellers &rarr;</a>
   <div class="hero-stats">
-    <div><div class="stat-num" id="statProducts">12</div><div class="stat-label">Featured Products</div></div>
+    <div><div class="stat-num" id="statProducts">0</div><div class="stat-label">Featured Products</div></div>
     <div><div class="stat-num">10+</div><div class="stat-label">Categories</div></div>
     <div><div class="stat-num">Daily</div><div class="stat-label">Auto Updated</div></div>
     <div><div class="stat-num">100%</div><div class="stat-label">Honest Reviews</div></div>
@@ -636,223 +933,421 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
   </div>
 </footer>
 
-<!-- TOAST NOTIFICATION -->
 <div class="toast" id="toast"></div>
 
 <script>
 /* ══════════════════════════════════════════════════════════
-   DATA — แก้ไขข้อมูลสินค้าที่นี่
-   customLink: ใส่ลิงค์โดยตรง (ถ้าว่างจะใช้ Amazon ASIN อัตโนมัติ)
+   CONFIG
 ══════════════════════════════════════════════════════════ */
-const BEST_SELLERS = [
-  {
-    asin: 'B09B8RVKGM',
-    title: 'Apple AirPods Pro (2nd Generation) with MagSafe Case',
-    category: 'electronics', cat: 'Electronics',
-    price: '$189.00', oldPrice: '$249.00',
-    rating: 4.7, reviews: 85420,
-    badge: '#1 Best Seller', emoji: '🎧',
-    keywords: ['AirPods Pro 2nd gen', 'best noise cancelling earbuds', 'Apple wireless earphones', 'premium earbuds 2026'],
-    customLink: '',  // ← วางลิงค์สินค้าที่นี่
-    imageUrl: ''     // ← วาง URL รูปสินค้าที่นี่
-  },
-  {
-    asin: 'B0CHX2QMKR',
-    title: 'Amazon Fire TV Stick 4K Max — Streaming Device',
-    category: 'electronics', cat: 'Electronics',
-    price: '$59.99', oldPrice: '$69.99',
-    rating: 4.6, reviews: 42100,
-    badge: 'Best Seller', emoji: '📺',
-    keywords: ['Fire TV Stick 4K', 'best streaming device', 'Amazon smart TV stick', '4K HDR streaming'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B08SXNXFHK',
-    title: 'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart',
-    category: 'home', cat: 'Home & Kitchen',
-    price: '$79.95', oldPrice: '$99.99',
-    rating: 4.7, reviews: 128000,
-    badge: '#1 Best Seller', emoji: '🍲',
-    keywords: ['Instant Pot Duo', 'best pressure cooker', '7-in-1 cooker', 'top kitchen appliance 2026'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B07WG5NKF3',
-    title: 'Ninja BN701 Professional Plus Blender, 1400 Peak Watts',
-    category: 'home', cat: 'Home & Kitchen',
-    price: '$99.99', oldPrice: '$129.99',
-    rating: 4.8, reviews: 32500,
-    badge: 'Top Rated', emoji: '🥤',
-    keywords: ['Ninja professional blender', 'best blender for smoothies', '1400 watt blender', 'kitchen blender review'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B000YJ2SKE',
-    title: 'CeraVe Moisturizing Cream — Body & Face Moisturizer 19 oz',
-    category: 'beauty', cat: 'Beauty & Skincare',
-    price: '$18.98', oldPrice: '$22.99',
-    rating: 4.8, reviews: 98400,
-    badge: '#1 Best Seller', emoji: '🧴',
-    keywords: ['CeraVe moisturizing cream', 'best face moisturizer', 'dermatologist recommended skincare', 'sensitive skin cream'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B08GH2XLHD',
-    title: 'COSRX Snail Mucin 96% Power Repairing Essence, 3.38 fl.oz',
-    category: 'beauty', cat: 'Beauty & Skincare',
-    price: '$25.00', oldPrice: '$30.00',
-    rating: 4.5, reviews: 56700,
-    badge: 'K-Beauty Pick', emoji: '✨',
-    keywords: ['COSRX snail mucin essence', 'best Korean skincare', 'glass skin routine', 'anti-aging essence Amazon'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B07ZF7BHJ3',
-    title: 'Resistance Bands Set — 5 Levels Exercise Bands for Workout',
-    category: 'sports', cat: 'Sports & Fitness',
-    price: '$15.99', oldPrice: '$24.99',
-    rating: 4.6, reviews: 78900,
-    badge: '#1 Best Seller', emoji: '💪',
-    keywords: ['resistance bands set', 'best workout bands', 'home gym equipment', 'exercise resistance bands review'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B000FGDIAI',
-    title: 'Hydro Flask 40 oz Wide Mouth Travel Tumbler',
-    category: 'sports', cat: 'Sports & Fitness',
-    price: '$44.95', oldPrice: null,
-    rating: 4.8, reviews: 41200,
-    badge: 'Top Pick', emoji: '🫗',
-    keywords: ['Hydro Flask tumbler', 'best insulated water bottle', '40oz travel tumbler', 'stainless steel bottle review'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: '1982176547',
-    title: 'Atomic Habits by James Clear — Build Good Habits & Break Bad Ones',
-    category: 'books', cat: 'Books',
-    price: '$14.99', oldPrice: '$27.00',
-    rating: 4.8, reviews: 165000,
-    badge: '#1 Bestseller', emoji: '📗',
-    keywords: ['Atomic Habits James Clear', 'best self help book', 'habit building book', 'most popular book on Amazon'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B07CBJQS16',
-    title: 'Vitafusion Multivites Gummy Multivitamins for Adults, 150ct',
-    category: 'health', cat: 'Health & Wellness',
-    price: '$12.49', oldPrice: '$15.99',
-    rating: 4.7, reviews: 54300,
-    badge: 'Best Seller', emoji: '💊',
-    keywords: ['best gummy multivitamin adults', 'Vitafusion vitamins review', 'daily multivitamin Amazon', 'immune support vitamins'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B07THGQ778',
-    title: 'LEGO Classic Large Creative Brick Box — 790 Pieces',
-    category: 'toys', cat: 'Toys & Games',
-    price: '$49.99', oldPrice: '$64.99',
-    rating: 4.9, reviews: 23400,
-    badge: '#1 Best Seller', emoji: '🧱',
-    keywords: ['LEGO Classic set', 'best LEGO for kids', 'creative building toys', 'top toys Amazon 2026'],
-    customLink: '', imageUrl: ''
-  },
-  {
-    asin: 'B000I1PWGK',
-    title: 'BLACK+DECKER 20V MAX Cordless Drill/Driver with Battery',
-    category: 'tools', cat: 'Tools & DIY',
-    price: '$59.99', oldPrice: '$79.00',
-    rating: 4.6, reviews: 45600,
-    badge: 'Best Seller', emoji: '🔧',
-    keywords: ['BLACK+DECKER cordless drill', 'best drill for home use', '20V drill review', 'top power tools Amazon'],
-    customLink: '', imageUrl: ''
-  },
-];
+const CLOUDINARY_CLOUD = 'dgaonx6tx';
+const CLOUDINARY_PRESET = 'product_images';
+
+const STORE_KEY  = 'dealshub_store_id';
+const SB_URL_KEY = 'dealshub_sb_url';
+const SB_KEY_KEY = 'dealshub_sb_key';
+
+let products      = [];
+let currentFilter = 'all';
+let storeId       = localStorage.getItem(STORE_KEY) || 'bestselle0e48-20';
+let sbUrl         = localStorage.getItem(SB_URL_KEY) || 'https://kqaawlcnembvgcjgsinb.supabase.co';
+let sbKey         = localStorage.getItem(SB_KEY_KEY) || '';
+let uploadedFile  = null;
+let addPanelOpen  = false;
+let linkMgrOpen   = false;
 
 /* ══════════════════════════════════════════════════════════
-   STATE
+   SUPABASE HELPERS
 ══════════════════════════════════════════════════════════ */
-const STORE_KEY = 'dealshub_store_id';
-const LINKS_KEY = 'dealshub_custom_links';
-const IMAGES_KEY = 'dealshub_image_urls';
+function sbHeaders() {
+  return {
+    'apikey': sbKey,
+    'Authorization': 'Bearer ' + sbKey,
+    'Content-Type': 'application/json',
+    'Prefer': 'return=representation'
+  };
+}
 
-let currentFilter = 'all';
-let storeId = localStorage.getItem(STORE_KEY) || 'bestselle0e48-20';
-let customLinks = {};
-let imageUrls = {};  // { asin: imageUrl }
+function sbEndpoint(path = '') {
+  const base = sbUrl.replace(/\/rest\/v1\/?$/, '');
+  return `${base}/rest/v1/products${path}`;
+}
 
-// โหลดข้อมูลจาก localStorage
-function loadStoredLinks() {
+async function sbFetch(path, options = {}) {
+  const res = await fetch(sbEndpoint(path), {
+    ...options,
+    headers: { ...sbHeaders(), ...(options.headers || {}) }
+  });
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch { data = text; }
+  if (!res.ok) throw new Error(data?.message || data?.error || `HTTP ${res.status}`);
+  return data;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SUPABASE CONFIG
+══════════════════════════════════════════════════════════ */
+function saveSupabaseConfig() {
+  const url = document.getElementById('sbUrl').value.trim();
+  const key = document.getElementById('sbKey').value.trim();
+  if (!url || !key) { showToast('⚠ กรุณาใส่ Supabase URL และ Anon Key', 'error'); return; }
+  sbUrl = url.replace(/\/rest\/v1\/?$/, '');
+  sbKey = key;
+  localStorage.setItem(SB_URL_KEY, sbUrl);
+  localStorage.setItem(SB_KEY_KEY, sbKey);
+  setSbStatus('loading', '⟳ กำลังทดสอบ...');
+  testSupabaseConnection();
+}
+
+async function testSupabaseConnection() {
   try {
-    const stored = localStorage.getItem(LINKS_KEY);
-    if (stored) customLinks = JSON.parse(stored);
-    const storedImgs = localStorage.getItem(IMAGES_KEY);
-    if (storedImgs) imageUrls = JSON.parse(storedImgs);
-  } catch(e) {}
-  BEST_SELLERS.forEach(p => {
-    if (customLinks[p.asin]) p.customLink = customLinks[p.asin];
-    if (imageUrls[p.asin]) p.imageUrl = imageUrls[p.asin];
+    await sbFetch('?select=id&limit=1');
+    setSbStatus('ok', '✓ เชื่อมต่อ Supabase สำเร็จ');
+    showToast('✓ เชื่อม Supabase สำเร็จ!', 'success');
+  } catch(e) {
+    setSbStatus('err', '✗ ' + e.message);
+    showToast('⚠ เชื่อม Supabase ไม่ได้: ' + e.message, 'error');
+  }
+}
+
+function setSbStatus(type, msg) {
+  const el = document.getElementById('sbStatus');
+  el.textContent = msg;
+  el.className = 'supabase-status ' + type;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LOAD FROM SUPABASE
+══════════════════════════════════════════════════════════ */
+async function syncFromSupabase() {
+  if (!sbKey) { showToast('⚠ กรุณาใส่ Supabase Anon Key ก่อน', 'error'); return; }
+  setSbStatus('loading', '⟳ กำลังโหลด...');
+  try {
+    const rows = await sbFetch('?select=*&order=rank_no.asc');
+    products = rows.map(rowToProduct);
+    renderProducts();
+    if (linkMgrOpen) renderLinkTable();
+    document.getElementById('statProducts').textContent = products.length;
+    setSbStatus('ok', `✓ โหลดแล้ว ${products.length} รายการ`);
+    showToast(`✓ โหลดสินค้าจาก Supabase แล้ว (${products.length} รายการ)`, 'success');
+    updateLastUpdated();
+  } catch(e) {
+    setSbStatus('err', '✗ ' + e.message);
+    showToast('⚠ โหลดจาก Supabase ไม่ได้: ' + e.message, 'error');
+  }
+}
+
+function rowToProduct(row) {
+  return {
+    id:          row.id,
+    asin:        row.asin        || '',
+    title:       row.title       || '',
+    category:    row.category    || 'electronics',
+    cat:         catLabel(row.category),
+    price:       row.price       || '',
+    oldPrice:    row.old_price   || null,
+    badge:       row.badge       || '',
+    emoji:       row.emoji       || '📦',
+    rating:      parseFloat(row.rating)  || 4.5,
+    reviews:     parseInt(row.reviews)   || 0,
+    keywords:    parseKeywords(row.keywords),
+    customLink:  row.affiliate_link || '',
+    imageUrl:    row.image_url   || '',
+    rank_no:     row.rank_no     || 999,
+    fromDb:      true,
+  };
+}
+
+function parseKeywords(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+  return val.split(',').map(k => k.trim()).filter(Boolean);
+}
+
+function catLabel(cat) {
+  const map = {
+    electronics:'Electronics', home:'Home & Kitchen', beauty:'Beauty & Skincare',
+    sports:'Sports & Fitness', books:'Books', toys:'Toys & Games',
+    health:'Health & Wellness', fashion:'Fashion', tools:'Tools & DIY', food:'Grocery'
+  };
+  return map[cat] || cat || 'General';
+}
+
+/* ══════════════════════════════════════════════════════════
+   PUSH TO SUPABASE (upsert all)
+══════════════════════════════════════════════════════════ */
+async function pushToSupabase() {
+  if (!sbKey) { showToast('⚠ กรุณาเชื่อม Supabase ก่อน', 'error'); return; }
+  if (!products.length) { showToast('⚠ ไม่มีสินค้าในรายการ', 'error'); return; }
+  setSbStatus('loading', '⟳ กำลัง Push...');
+  try {
+    const rows = products.map(productToRow);
+    await sbFetch('?on_conflict=asin', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify(rows)
+    });
+    setSbStatus('ok', `✓ Push แล้ว ${rows.length} รายการ`);
+    showToast(`✓ Push ไป Supabase แล้ว ${rows.length} รายการ`, 'success');
+  } catch(e) {
+    setSbStatus('err', '✗ ' + e.message);
+    showToast('⚠ Push ไม่ได้: ' + e.message, 'error');
+  }
+}
+
+function productToRow(p) {
+  return {
+    asin:          p.asin,
+    rank_no:       p.rank_no || 999,
+    title:         p.title,
+    category:      p.category,
+    price:         p.price,
+    old_price:     p.oldPrice || null,
+    badge:         p.badge || null,
+    emoji:         p.emoji || '📦',
+    rating:        p.rating || null,
+    reviews:       p.reviews || null,
+    keywords:      (p.keywords || []).join(', '),
+    affiliate_link: p.customLink || null,
+    image_url:     p.imageUrl || null,
+  };
+}
+
+/* ══════════════════════════════════════════════════════════
+   SAVE ALL (from link table) TO SUPABASE
+══════════════════════════════════════════════════════════ */
+async function saveAllToSupabase() {
+  collectLinkTableData();
+  if (!sbKey) { showToast('⚠ กรุณาเชื่อม Supabase ก่อน', 'error'); return; }
+  setSbStatus('loading', '⟳ กำลังบันทึก...');
+  try {
+    const rows = products.map(productToRow);
+    await sbFetch('?on_conflict=asin', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify(rows)
+    });
+    setSbStatus('ok', `✓ บันทึกแล้ว`);
+    showToast('✓ บันทึกทั้งหมดไป Supabase แล้ว!', 'success');
+  } catch(e) {
+    setSbStatus('err', '✗ ' + e.message);
+    showToast('⚠ บันทึกไม่ได้: ' + e.message, 'error');
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ADD PRODUCT FORM
+══════════════════════════════════════════════════════════ */
+function toggleAddProduct() {
+  addPanelOpen = !addPanelOpen;
+  const panel = document.getElementById('addProductPanel');
+  const label = document.getElementById('addProductLabel');
+  if (addPanelOpen) {
+    panel.classList.add('open');
+    label.textContent = 'ปิดฟอร์ม';
+  } else {
+    panel.classList.remove('open');
+    label.textContent = 'เพิ่มสินค้า';
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   CLOUDINARY UPLOAD
+══════════════════════════════════════════════════════════ */
+function handleImageSelect(event) {
+  const file = event.target.files[0];
+  if (file) previewAndPrepare(file);
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.add('drag-over');
+}
+function dragLeave(e) {
+  document.getElementById('uploadZone').classList.remove('drag-over');
+}
+function dropFile(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) previewAndPrepare(file);
+}
+
+function previewAndPrepare(file) {
+  uploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    document.getElementById('imagePreviewImg').src = e.target.result;
+    document.getElementById('imagePreviewWrap').style.display = 'block';
+    document.getElementById('uploadPlaceholder').style.display = 'none';
+    document.getElementById('uploadedImageUrl').value = '';
+    document.getElementById('uploadStatus').textContent = `📁 ${file.name} (${(file.size/1024).toFixed(0)} KB) — พร้อมอัปโหลด`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  uploadedFile = null;
+  document.getElementById('imagePreviewImg').src = '';
+  document.getElementById('imagePreviewWrap').style.display = 'none';
+  document.getElementById('uploadPlaceholder').style.display = 'block';
+  document.getElementById('uploadedImageUrl').value = '';
+  document.getElementById('uploadStatus').textContent = '';
+  document.getElementById('imageFile').value = '';
+}
+
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_PRESET);
+  formData.append('folder', 'dealshub_products');
+
+  const progressBar  = document.getElementById('uploadProgressBar');
+  const progressWrap = document.getElementById('uploadProgress');
+  const statusEl     = document.getElementById('uploadStatus');
+
+  progressWrap.style.display = 'block';
+  statusEl.textContent = '☁️ กำลังอัปโหลดไป Cloudinary...';
+
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`);
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = pct + '%';
+        statusEl.textContent = `☁️ กำลังอัปโหลด... ${pct}%`;
+      }
+    };
+
+    xhr.onload = () => {
+      progressBar.style.width = '100%';
+      if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        statusEl.textContent = `✓ อัปโหลดสำเร็จ! URL: ${data.secure_url}`;
+        document.getElementById('uploadedImageUrl').value = data.secure_url;
+        resolve(data.secure_url);
+      } else {
+        const err = JSON.parse(xhr.responseText);
+        statusEl.textContent = `✗ อัปโหลดไม่สำเร็จ: ${err.error?.message || xhr.status}`;
+        reject(new Error(err.error?.message || 'Upload failed'));
+      }
+    };
+
+    xhr.onerror = () => {
+      statusEl.textContent = '✗ Network error — ตรวจสอบ upload preset และ cloud name';
+      reject(new Error('Network error'));
+    };
+
+    xhr.send(formData);
   });
 }
 
-function saveStoredLinks() {
-  localStorage.setItem(LINKS_KEY, JSON.stringify(customLinks));
-  localStorage.setItem(IMAGES_KEY, JSON.stringify(imageUrls));
-}
-
 /* ══════════════════════════════════════════════════════════
-   LINK RESOLUTION — ติด tag id ทุกลิงค์อัตโนมัติ
+   SUBMIT PRODUCT
 ══════════════════════════════════════════════════════════ */
-function appendTag(url) {
-  if (!url || !storeId) return url;
+async function submitProduct() {
+  const asin  = document.getElementById('fAsin').value.trim();
+  const title = document.getElementById('fTitle').value.trim();
+  if (!asin || !title) { showToast('⚠ กรุณาใส่ ASIN และชื่อสินค้า', 'error'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⟳ กำลังบันทึก...';
+
   try {
-    const u = new URL(url);
-    // ถ้ายังไม่มี tag ให้เติมให้
-    if (!u.searchParams.get('tag')) {
-      u.searchParams.set('tag', storeId);
+    let imageUrl = document.getElementById('uploadedImageUrl').value;
+
+    if (uploadedFile && !imageUrl) {
+      imageUrl = await uploadToCloudinary(uploadedFile);
     }
-    return u.toString();
+
+    const keywords = document.getElementById('fKeywords').value
+      .split(',').map(k => k.trim()).filter(Boolean);
+
+    const newProduct = {
+      asin:          asin,
+      rank_no:       parseInt(document.getElementById('fRank').value) || (products.length + 1),
+      title:         title,
+      category:      document.getElementById('fCategory').value,
+      price:         document.getElementById('fPrice').value.trim(),
+      old_price:     document.getElementById('fOldPrice').value.trim() || null,
+      badge:         document.getElementById('fBadge').value.trim() || null,
+      emoji:         document.getElementById('fEmoji').value.trim() || '📦',
+      rating:        parseFloat(document.getElementById('fRating').value) || null,
+      reviews:       parseInt(document.getElementById('fReviews').value) || null,
+      keywords:      keywords.join(', '),
+      affiliate_link: document.getElementById('fLink').value.trim() || null,
+      image_url:     imageUrl || null,
+    };
+
+    if (sbKey) {
+      const saved = await sbFetch('', {
+        method: 'POST',
+        body: JSON.stringify(newProduct)
+      });
+      const row = Array.isArray(saved) ? saved[0] : saved;
+      products.push(rowToProduct({ ...newProduct, id: row?.id }));
+      showToast('✓ บันทึกสินค้าไป Supabase แล้ว!', 'success');
+    } else {
+      products.push(rowToProduct(newProduct));
+      showToast('✓ เพิ่มสินค้าแล้ว (ยังไม่ได้เชื่อม Supabase)', 'success');
+    }
+
+    renderProducts();
+    if (linkMgrOpen) renderLinkTable();
+    document.getElementById('statProducts').textContent = products.length;
+    resetForm();
+    if (addPanelOpen) toggleAddProduct();
+
   } catch(e) {
-    // URL ไม่สมบูรณ์ — คืนค่าเดิม
-    return url;
+    showToast('⚠ เกิดข้อผิดพลาด: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 บันทึกสินค้า (Supabase + แสดงบนหน้าเว็บ)';
   }
 }
 
-function resolveLink(p) {
-  if (p.customLink && p.customLink.trim()) {
-    return appendTag(p.customLink.trim());
-  }
-  return `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
-}
-
-function isCustom(p) {
-  return !!(p.customLink && p.customLink.trim());
+function resetForm() {
+  ['fAsin','fTitle','fPrice','fOldPrice','fBadge','fRating','fReviews','fRank','fEmoji','fLink','fKeywords'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fCategory').value = 'electronics';
+  removeImage({ stopPropagation:()=>{}, preventDefault:()=>{} });
+  document.getElementById('uploadProgress').style.display = 'none';
+  document.getElementById('uploadProgressBar').style.width = '0%';
 }
 
 /* ══════════════════════════════════════════════════════════
-   ADMIN FUNCTIONS
+   DELETE PRODUCT
 ══════════════════════════════════════════════════════════ */
-function saveStoreId() {
-  const id = document.getElementById('storeId').value.trim();
-  if (!id) { showStatus('err', '⚠ กรุณาใส่ Store ID'); return; }
-  storeId = id;
-  localStorage.setItem(STORE_KEY, id);
-  showStatus('ok', '✓ บันทึกแล้ว: ' + id);
-  renderProducts();
-  renderLinkTable();
+async function deleteProduct(asin) {
+  if (!confirm(`ลบสินค้า ASIN: ${asin} ออกจาก Supabase ด้วยไหม?`)) return;
+  try {
+    if (sbKey) {
+      await sbFetch(`?asin=eq.${encodeURIComponent(asin)}`, { method: 'DELETE' });
+    }
+    products = products.filter(p => p.asin !== asin);
+    renderProducts();
+    if (linkMgrOpen) renderLinkTable();
+    document.getElementById('statProducts').textContent = products.length;
+    showToast('🗑 ลบสินค้าแล้ว', 'success');
+  } catch(e) {
+    showToast('⚠ ลบไม่ได้: ' + e.message, 'error');
+  }
 }
 
-function showStatus(type, msg) {
-  const el = document.getElementById('configStatus');
-  el.textContent = msg;
-  el.className = 'config-status ' + type;
-}
-
-let linkManagerOpen = false;
+/* ══════════════════════════════════════════════════════════
+   LINK MANAGER
+══════════════════════════════════════════════════════════ */
 function toggleLinkManager() {
-  linkManagerOpen = !linkManagerOpen;
-  const lm = document.getElementById('linkManager');
+  linkMgrOpen = !linkMgrOpen;
+  const lm    = document.getElementById('linkManager');
   const label = document.getElementById('toggleLabel');
-  if (linkManagerOpen) {
+  if (linkMgrOpen) {
     lm.classList.add('open');
     label.textContent = 'ปิด Link Manager';
     renderLinkTable();
@@ -862,71 +1357,55 @@ function toggleLinkManager() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════
-   LINK TABLE
-══════════════════════════════════════════════════════════ */
 function renderLinkTable(filter = '') {
   const tbody = document.getElementById('linkTableBody');
-  const q = filter.toLowerCase();
-  const rows = BEST_SELLERS.filter(p =>
-    !q || p.title.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)
+  const q     = filter.toLowerCase();
+  const rows  = products.filter(p =>
+    !q || p.title.toLowerCase().includes(q) || (p.cat||'').toLowerCase().includes(q)
   );
 
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:24px;color:rgba(255,255,255,0.3);">ไม่มีสินค้า — กด "โหลดจาก Supabase" หรือ "เพิ่มสินค้า"</td></tr>`;
+    return;
+  }
+
   tbody.innerHTML = rows.map((p) => {
-    const autoLink = appendTag(`https://www.amazon.com/dp/${p.asin}`);
-    const custom = isCustom(p);
-    const displayLink = custom ? p.customLink : '';
-    const displayImg = p.imageUrl || '';
+    const autoLink  = `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
+    const displayLink = p.customLink || '';
+    const displayImg  = p.imageUrl   || '';
     const hasImg = !!displayImg;
     const imgPreview = hasImg
-      ? `<img src="${escHtml(displayImg)}" style="width:44px;height:44px;object-fit:contain;border-radius:4px;background:#fff;border:1px solid rgba(255,255,255,0.1);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-      : '';
-    const emojiFallback = `<span style="font-size:24px;${hasImg ? 'display:none' : ''}">${p.emoji}</span>`;
+      ? `<img src="${escHtml(displayImg)}" style="width:44px;height:44px;object-fit:contain;border-radius:4px;background:#fff;border:1px solid rgba(255,255,255,0.1);" onerror="this.style.display='none'">` : '';
+    const emojiFallback = `<span style="font-size:22px;${hasImg ? 'display:none' : ''}">${p.emoji || '📦'}</span>`;
+    const sourceBadge = p.fromDb
+      ? '<span class="status-badge db">⚡ DB</span>'
+      : '<span class="status-badge auto">📝 Local</span>';
 
     return `
     <tr data-asin="${p.asin}">
-      <td class="td-rank">#${BEST_SELLERS.indexOf(p) + 1}</td>
-      <td style="width:52px;text-align:center;">
-        ${imgPreview}${emojiFallback}
-      </td>
+      <td class="td-rank">${p.rank_no || '—'}</td>
+      <td style="width:52px;text-align:center;">${imgPreview}${emojiFallback}</td>
       <td class="td-title">${p.title}</td>
-      <td class="td-cat">${p.cat}</td>
-      <td class="td-price">${p.price}</td>
-      <td class="td-status">
-        <span class="status-badge ${custom ? 'custom' : 'auto'}">
-          ${custom ? '✓ Custom' : '⚡ Auto'}
-        </span>
-      </td>
+      <td class="td-cat">${p.cat || ''}</td>
+      <td class="td-price">${p.price || '—'}</td>
+      <td class="td-status">${sourceBadge}</td>
       <td>
         <div class="link-input-wrap">
-          <input
-            class="link-input ${custom ? 'has-link' : ''}"
-            type="url"
-            placeholder="${autoLink}"
-            value="${escHtml(displayLink)}"
-            data-asin="${p.asin}"
-            data-field="link"
-            oninput="onLinkInput(this)"
-            onpaste="setTimeout(()=>onLinkInput(this),10)"
-          >
+          <input class="link-input ${displayLink ? 'has-link' : ''}" type="url"
+            placeholder="${autoLink}" value="${escHtml(displayLink)}"
+            data-asin="${p.asin}" data-field="link" oninput="onLinkInput(this)">
         </div>
       </td>
       <td>
         <div class="link-input-wrap">
-          <input
-            class="link-input ${hasImg ? 'has-link' : ''}"
-            type="url"
-            placeholder="https://... (URL รูปสินค้า)"
-            value="${escHtml(displayImg)}"
-            data-asin="${p.asin}"
-            data-field="image"
-            oninput="onImageInput(this)"
-            onpaste="setTimeout(()=>onImageInput(this),10)"
-          >
+          <input class="link-input ${hasImg ? 'has-link' : ''}" type="url"
+            placeholder="https://res.cloudinary.com/..." value="${escHtml(displayImg)}"
+            data-asin="${p.asin}" data-field="image" oninput="onImageInput(this)">
         </div>
       </td>
-      <td>
+      <td style="white-space:nowrap;">
         <button class="btn-test" onclick="testLink('${p.asin}')">🔗 เปิด</button>
+        <button class="btn-del" onclick="deleteProduct('${p.asin}')">🗑</button>
       </td>
     </tr>`;
   }).join('');
@@ -936,34 +1415,37 @@ function escHtml(str) {
   return (str || '').replace(/"/g, '&quot;');
 }
 
+function collectLinkTableData() {
+  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
+    const asin = input.dataset.asin;
+    const p = products.find(x => x.asin === asin);
+    if (p) p.customLink = input.value.trim();
+  });
+  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
+    const asin = input.dataset.asin;
+    const p = products.find(x => x.asin === asin);
+    if (p) p.imageUrl = input.value.trim();
+  });
+}
+
 function onLinkInput(input) {
   const asin = input.dataset.asin;
-  const val = input.value.trim();
-  const p = BEST_SELLERS.find(x => x.asin === asin);
-  if (!p) return;
-  p.customLink = val;
-  input.classList.toggle('has-link', !!val);
-  const row = input.closest('tr');
-  const badge = row.querySelector('.status-badge');
-  if (badge) {
-    badge.className = `status-badge ${val ? 'custom' : 'auto'}`;
-    badge.textContent = val ? '✓ Custom' : '⚡ Auto';
-  }
+  const p = products.find(x => x.asin === asin);
+  if (p) p.customLink = input.value.trim();
+  input.classList.toggle('has-link', !!input.value.trim());
 }
 
 function onImageInput(input) {
   const asin = input.dataset.asin;
-  const val = input.value.trim();
-  const p = BEST_SELLERS.find(x => x.asin === asin);
-  if (!p) return;
-  p.imageUrl = val;
+  const val  = input.value.trim();
+  const p    = products.find(x => x.asin === asin);
+  if (p) p.imageUrl = val;
   input.classList.toggle('has-link', !!val);
-  // อัพเดต preview รูปใน row เดียวกัน
-  const row = input.closest('tr');
-  const img = row.querySelector('img');
+  const row   = input.closest('tr');
+  const imgEl = row.querySelector('img');
   const emoji = row.querySelector('td:nth-child(2) span');
   if (val) {
-    if (img) { img.src = val; img.style.display = ''; }
+    if (imgEl) { imgEl.src = val; imgEl.style.display = ''; }
     else {
       const td = row.querySelector('td:nth-child(2)');
       const newImg = document.createElement('img');
@@ -974,141 +1456,83 @@ function onImageInput(input) {
     }
     if (emoji) emoji.style.display = 'none';
   } else {
-    if (img) img.style.display = 'none';
+    if (imgEl) imgEl.style.display = 'none';
     if (emoji) emoji.style.display = '';
   }
 }
 
-function filterTable(q) {
-  renderLinkTable(q);
-}
-
-function saveAllLinks() {
-  collectCurrentData();
-  saveStoredLinks();
-  renderProducts();
-  showToast('💾 บันทึกชั่วคราวแล้ว — กด "Export HTML" เพื่อให้ถาวรบน GitHub!', 'success');
-}
+function filterTable(q) { renderLinkTable(q); }
 
 function clearAllLinks() {
-  if (!confirm('ล้างลิงค์และรูปทั้งหมดใช่ไหม?')) return;
-  BEST_SELLERS.forEach(p => { p.customLink = ''; p.imageUrl = ''; });
-  customLinks = {}; imageUrls = {};
-  saveStoredLinks();
+  if (!confirm('ล้างลิงค์ทั้งหมดออกจาก local (ไม่ลบ Supabase)?')) return;
+  products.forEach(p => { p.customLink = ''; p.imageUrl = ''; });
   renderLinkTable();
   renderProducts();
-  showToast('🗑 ล้างลิงค์และรูปทั้งหมดแล้ว', 'success');
-}
-
-function testLink(asin) {
-  const p = BEST_SELLERS.find(x => x.asin === asin);
-  if (!p) return;
-  // อ่าน input ล่าสุดก่อน
-  const input = document.querySelector(`.link-input[data-asin="${asin}"]`);
-  if (input) p.customLink = input.value.trim();
-  window.open(resolveLink(p), '_blank');
+  showToast('🗑 ล้างแล้ว (Supabase ยังมีข้อมูล)', 'success');
 }
 
 function applyBulkTag() {
   const tag = document.getElementById('bulkTag').value.trim();
   if (!tag) { showToast('⚠ กรุณาใส่ tag parameter', 'error'); return; }
-  const inputs = document.querySelectorAll('.link-input');
-  inputs.forEach(input => {
-    const asin = input.dataset.asin;
-    const p = BEST_SELLERS.find(x => x.asin === asin);
-    if (!p) return;
-    // เฉพาะลิงค์ที่มี ?tag= ให้แทนที่
+  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
     if (input.value.includes('tag=')) {
       input.value = input.value.replace(/tag=[^&]+/, tag);
-      p.customLink = input.value;
-    } else if (input.value === '') {
-      // ไม่ทำอะไร — auto link จะใช้ store id
+      const asin = input.dataset.asin;
+      const p = products.find(x => x.asin === asin);
+      if (p) p.customLink = input.value;
     }
   });
-  showToast('✓ อัพเดท tag แล้ว กด "บันทึกลิงค์" เพื่อใช้งาน', 'success');
+  showToast('✓ อัพเดท tag แล้ว กด "บันทึกทั้งหมดไป Supabase"', 'success');
+}
+
+function testLink(asin) {
+  const p = products.find(x => x.asin === asin);
+  if (!p) return;
+  const link = p.customLink || `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
+  window.open(link, '_blank');
 }
 
 /* ══════════════════════════════════════════════════════════
-   EXPORT HTML — ฝังข้อมูลลงในไฟล์ HTML โดยตรง
-   → upload ทับ GitHub Pages ได้เลย ข้อมูลไม่หาย
+   STORE ID
 ══════════════════════════════════════════════════════════ */
-function collectCurrentData() {
-  // อ่านค่าจาก input ทั้งหมดก่อน
-  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
-    const asin = input.dataset.asin;
-    const val = input.value.trim();
-    const p = BEST_SELLERS.find(x => x.asin === asin);
-    if (p) p.customLink = val;
-    if (val) customLinks[asin] = val; else delete customLinks[asin];
-  });
-  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
-    const asin = input.dataset.asin;
-    const val = input.value.trim();
-    const p = BEST_SELLERS.find(x => x.asin === asin);
-    if (p) p.imageUrl = val;
-    if (val) imageUrls[asin] = val; else delete imageUrls[asin];
-  });
+function saveStoreId() {
+  const id = document.getElementById('storeId').value.trim();
+  if (!id) { showStatus('err', '⚠ กรุณาใส่ Store ID'); return; }
+  storeId = id;
+  localStorage.setItem(STORE_KEY, id);
+  showStatus('ok', '✓ Active: ' + id);
+  renderProducts();
+  if (linkMgrOpen) renderLinkTable();
 }
 
-function exportHTML() {
-  collectCurrentData();
-  // สร้าง JS data block ใหม่ที่มีลิงค์และรูปฝังอยู่
-  const dataBlock = `const BEST_SELLERS = ${JSON.stringify(BEST_SELLERS, null, 2)};`;
-  // อ่าน source HTML ของหน้านี้
-  const fullHtml = document.documentElement.outerHTML;
-  // แทนที่ BEST_SELLERS block ใน source
-  const updated = fullHtml.replace(
-    /const BEST_SELLERS = \[[\s\S]*?\];/,
-    dataBlock
-  );
-  // ฝัง storeId ลงไปด้วย
-  const withStore = updated.replace(
-    /let storeId = localStorage\.getItem\(STORE_KEY\) \|\| '[^']*';/,
-    `let storeId = '${storeId}';`
-  );
-  const blob = new Blob([withStore], { type: 'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'index.html';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('⬇ ดาวน์โหลด index.html แล้ว → upload ทับ GitHub!', 'success');
+function showStatus(type, msg) {
+  const el = document.getElementById('configStatus');
+  el.textContent = msg;
+  el.className = 'config-status ' + type;
 }
 
 /* ══════════════════════════════════════════════════════════
    EXPORT / IMPORT JSON
 ══════════════════════════════════════════════════════════ */
 function exportLinks() {
-  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
-    const asin = input.dataset.asin;
-    const val = input.value.trim();
-    if (val) customLinks[asin] = val; else delete customLinks[asin];
-  });
-  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
-    const asin = input.dataset.asin;
-    const val = input.value.trim();
-    if (val) imageUrls[asin] = val; else delete imageUrls[asin];
-  });
-  const exportData = {
+  collectLinkTableData();
+  const data = {
     storeId,
     exportedAt: new Date().toISOString(),
-    links: BEST_SELLERS.map(p => ({
-      asin: p.asin,
-      title: p.title,
-      customLink: customLinks[p.asin] || '',
-      resolvedLink: resolveLink(p),
-      imageUrl: imageUrls[p.asin] || ''
+    supabaseUrl: sbUrl,
+    products: products.map(p => ({
+      asin: p.asin, title: p.title, rank_no: p.rank_no,
+      category: p.category, price: p.price, oldPrice: p.oldPrice,
+      badge: p.badge, emoji: p.emoji, rating: p.rating, reviews: p.reviews,
+      keywords: p.keywords, customLink: p.customLink, imageUrl: p.imageUrl,
     }))
   };
-  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `dealshub-links-${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('⬇ Export สำเร็จ!', 'success');
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `dealshub-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('⬇ Export JSON สำเร็จ!', 'success');
 }
 
 function importLinks(event) {
@@ -1123,15 +1547,15 @@ function importLinks(event) {
         document.getElementById('storeId').value = storeId;
         localStorage.setItem(STORE_KEY, storeId);
       }
-      if (data.links && Array.isArray(data.links)) {
-        data.links.forEach(item => {
-          const p = BEST_SELLERS.find(x => x.asin === item.asin);
-          if (!p) return;
-          if (item.customLink) { customLinks[item.asin] = item.customLink; p.customLink = item.customLink; }
-          if (item.imageUrl)   { imageUrls[item.asin]  = item.imageUrl;   p.imageUrl  = item.imageUrl; }
+      if (data.products && Array.isArray(data.products)) {
+        data.products.forEach(item => {
+          const p = products.find(x => x.asin === item.asin);
+          if (p) {
+            if (item.customLink) p.customLink = item.customLink;
+            if (item.imageUrl)   p.imageUrl   = item.imageUrl;
+          }
         });
       }
-      saveStoredLinks();
       renderLinkTable();
       renderProducts();
       showToast('⬆ Import สำเร็จ!', 'success');
@@ -1148,24 +1572,35 @@ function importLinks(event) {
 ══════════════════════════════════════════════════════════ */
 function starsHTML(r) {
   let s = '';
-  for(let i=0; i<Math.floor(r); i++) s += '★';
-  if(r%1 >= 0.5) s += '½';
+  for(let i = 0; i < Math.floor(r); i++) s += '★';
+  if(r % 1 >= 0.5) s += '½';
   return s;
 }
 
-function renderCard(p, rank) {
-  const link = resolveLink(p);
-  const kw = p.keywords.slice(0,4).map(k=>`<span class="keyword-tag">${k}</span>`).join('');
-  const oldP = p.oldPrice ? `<span class="card-price-old">${p.oldPrice}</span>` : '';
-  const isC = isCustom(p);
+function appendTag(url) {
+  if (!url || !storeId) return url;
+  try {
+    const u = new URL(url);
+    if (!u.searchParams.get('tag')) u.searchParams.set('tag', storeId);
+    return u.toString();
+  } catch { return url; }
+}
 
+function resolveLink(p) {
+  if (p.customLink && p.customLink.trim()) return appendTag(p.customLink.trim());
+  return `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
+}
+
+function renderCard(p, rank) {
+  const link     = resolveLink(p);
+  const keywords = (p.keywords || []).slice(0,4).map(k => `<span class="keyword-tag">${k}</span>`).join('');
+  const oldP     = p.oldPrice ? `<span class="card-price-old">${p.oldPrice}</span>` : '';
   const imgContent = p.imageUrl
     ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}"
          style="width:100%;height:100%;object-fit:contain;padding:12px;"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-       >
-       <span style="display:none;align-items:center;justify-content:center;font-size:68px;width:100%;height:100%;">${p.emoji}</span>`
-    : `<span style="font-size:68px;">${p.emoji}</span>`;
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+       <span style="display:none;align-items:center;justify-content:center;font-size:68px;width:100%;height:100%;">${p.emoji || '📦'}</span>`
+    : `<span style="font-size:68px;">${p.emoji || '📦'}</span>`;
 
   return `
   <div class="product-card" data-cat="${p.category}">
@@ -1175,13 +1610,13 @@ function renderCard(p, rank) {
       <div class="card-rank">#${rank}</div>
     </div>
     <div class="card-body">
-      <span class="card-tag">${p.cat}</span>
+      <span class="card-tag">${p.cat || 'General'}</span>
       <div class="card-title">${p.title}</div>
-      <div class="card-stars">${starsHTML(p.rating)} <span>(${p.reviews.toLocaleString()} reviews)</span></div>
-      <div class="card-keywords">${kw}</div>
+      ${p.rating ? `<div class="card-stars">${starsHTML(p.rating)} <span>(${(p.reviews||0).toLocaleString()} reviews)</span></div>` : ''}
+      <div class="card-keywords">${keywords}</div>
       <div class="card-footer">
-        <div><span class="card-price">${p.price}</span>${oldP}</div>
-        <a href="${link}" target="_blank" rel="noopener ${isC ? '' : 'sponsored'}" class="btn-amazon">🛒 View on Amazon</a>
+        <div><span class="card-price">${p.price || ''}</span>${oldP}</div>
+        <a href="${link}" target="_blank" rel="noopener sponsored" class="btn-amazon">🛒 View on Amazon</a>
       </div>
     </div>
   </div>`;
@@ -1196,28 +1631,41 @@ function filterCat(cat, btn) {
 
 function renderProducts() {
   const grid = document.getElementById('productGrid');
-  let data = currentFilter === 'all' ? BEST_SELLERS : BEST_SELLERS.filter(p => p.category === currentFilter);
-  data = data.slice(0, 12);
+  let data = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
   if (!data.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);">ยังไม่มีสินค้าในหมวดนี้</div>`;
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <h3>ยังไม่มีสินค้า</h3>
+        <p>กด <strong>"โหลดจาก Supabase"</strong> เพื่อดึงสินค้าจาก database<br>
+        หรือกด <strong>"เพิ่มสินค้า"</strong> เพื่อเพิ่มสินค้าใหม่</p>
+      </div>`;
+    document.getElementById('statProducts').textContent = 0;
     return;
   }
   grid.innerHTML = data.map((p, i) => renderCard(p, i + 1)).join('');
   document.getElementById('statProducts').textContent = data.length;
 }
 
-function loadProducts() {
+function updateLastUpdated() {
+  const now = new Date();
+  document.getElementById('lastUpdated').textContent =
+    `Last updated: ${now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} ${now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
+}
+
+async function loadProducts() {
   const btn = document.getElementById('refreshBtn');
   btn.classList.add('spinning'); btn.disabled = true;
   document.getElementById('productGrid').innerHTML = [1,2,3].map(() =>
     `<div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>`
   ).join('');
-  setTimeout(() => {
+  if (sbKey) {
+    await syncFromSupabase();
+  } else {
     renderProducts();
-    const now = new Date();
-    document.getElementById('lastUpdated').textContent = `Last updated: ${now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} ${now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
-    btn.classList.remove('spinning'); btn.disabled = false;
-  }, 1000);
+    updateLastUpdated();
+  }
+  btn.classList.remove('spinning'); btn.disabled = false;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1229,7 +1677,7 @@ function showToast(msg, type = 'success') {
   toast.textContent = msg;
   toast.className = `toast ${type} show`;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { toast.className = 'toast'; }, 3000);
+  toastTimer = setTimeout(() => { toast.className = 'toast'; }, 4000);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1237,7 +1685,7 @@ function showToast(msg, type = 'success') {
 ══════════════════════════════════════════════════════════ */
 function subscribe() {
   const input = document.getElementById('emailInput');
-  const btn = document.querySelector('.newsletter-form button');
+  const btn   = document.querySelector('.newsletter-form button');
   if (input.value.includes('@')) {
     btn.textContent = '✓ Subscribed!'; btn.style.background = '#2d8a4e'; btn.style.color = '#fff';
     input.value = ''; input.disabled = true; btn.disabled = true;
@@ -1249,10 +1697,24 @@ function subscribe() {
 /* ══════════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════════ */
-document.getElementById('storeId').value = storeId;
-showStatus('ok', '✓ Active: ' + storeId);
-loadStoredLinks();
-loadProducts();
+(function init() {
+  document.getElementById('storeId').value = storeId;
+  showStatus('ok', '✓ Active: ' + storeId);
+
+  const savedSbUrl = localStorage.getItem(SB_URL_KEY);
+  const savedSbKey = localStorage.getItem(SB_KEY_KEY);
+  if (savedSbUrl) { sbUrl = savedSbUrl; document.getElementById('sbUrl').value = sbUrl; }
+  if (savedSbKey) { sbKey = savedSbKey; document.getElementById('sbKey').value = sbKey; }
+
+  if (sbKey) {
+    setSbStatus('loading', '⟳ กำลังโหลดสินค้า...');
+    loadProducts();
+  } else {
+    renderProducts();
+    updateLastUpdated();
+    setSbStatus('idle', '⬤ ใส่ Anon Key แล้วกด "เชื่อม"');
+  }
+})();
 </script>
 </body>
 </html>
