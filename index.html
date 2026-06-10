@@ -395,6 +395,7 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
     <button class="btn-admin btn-toggle" onclick="toggleLinkManager()">
       📋 <span id="toggleLabel">เปิด Link Manager</span>
     </button>
+    <button class="btn-admin btn-export" onclick="exportHTML()" style="background:rgba(201,151,42,0.2);color:var(--gold-light);border:1px solid rgba(201,151,42,0.3)!important;">⬇ Export HTML (อัปโหลด GitHub)</button>
     <button class="btn-admin btn-export" onclick="exportLinks()">⬇ Export JSON</button>
     <label style="cursor:pointer;">
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importLinks(event)">
@@ -435,7 +436,7 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
             <th>ราคา</th>
             <th>สถานะ</th>
             <th style="min-width:260px;">🔗 ลิงค์สินค้า <span style="color:rgba(255,255,255,0.25);font-weight:400;">(tag ติดอัตโนมัติ)</span></th>
-            <th style="min-width:260px;">🖼️ URL รูปภาพ</th>
+            <th style="min-width:260px;">🖼️ URL รูปภาพ <span style="color:rgba(255,255,255,0.25);font-weight:400;">(ImgBB/Imgur/Cloudinary)</span></th>
             <th>ทดสอบ</th>
           </tr>
         </thead>
@@ -445,8 +446,21 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
       </table>
     </div>
 
-    <button class="lm-save-all" onclick="saveAllLinks()">
-      💾 บันทึกลิงค์ทั้งหมด
+    <div style="margin-top:10px;padding:10px 14px;background:rgba(59,63,140,0.15);border:1px solid rgba(59,63,140,0.3);border-radius:6px;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.8;">
+      💡 <strong style="color:rgba(255,255,255,0.6);">รูปสินค้า:</strong>
+      Amazon บล็อกการดึงรูปตรงๆ — ให้ upload รูปไปที่
+      <a href="https://imgbb.com" target="_blank" style="color:var(--gold);">imgbb.com</a> หรือ
+      <a href="https://imgur.com" target="_blank" style="color:var(--gold);">imgur.com</a>
+      แล้ว copy "Direct link" มาวางในช่อง URL รูปภาพ
+      &nbsp;|&nbsp;
+      <strong style="color:rgba(255,255,255,0.6);">บันทึกถาวร:</strong> กด "Export HTML" แล้ว upload ไฟล์ index.html ทับใน GitHub repository
+    </div>
+
+    <button class="lm-save-all" onclick="saveAllLinks()" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);margin-bottom:8px;">
+      👁 ดูตัวอย่างบนหน้าเว็บ (ชั่วคราว)
+    </button>
+    <button class="lm-save-all" onclick="exportHTML()">
+      ⬇ Export HTML → Upload ทับ GitHub (บันทึกถาวร)
     </button>
   </div>
 
@@ -970,23 +984,10 @@ function filterTable(q) {
 }
 
 function saveAllLinks() {
-  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
-    const asin = input.dataset.asin;
-    const val = input.value.trim();
-    const p = BEST_SELLERS.find(x => x.asin === asin);
-    if (p) p.customLink = val;
-    if (val) customLinks[asin] = val; else delete customLinks[asin];
-  });
-  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
-    const asin = input.dataset.asin;
-    const val = input.value.trim();
-    const p = BEST_SELLERS.find(x => x.asin === asin);
-    if (p) p.imageUrl = val;
-    if (val) imageUrls[asin] = val; else delete imageUrls[asin];
-  });
+  collectCurrentData();
   saveStoredLinks();
   renderProducts();
-  showToast('💾 บันทึกลิงค์และรูปทั้งหมดแล้ว!', 'success');
+  showToast('💾 บันทึกชั่วคราวแล้ว — กด "Export HTML" เพื่อให้ถาวรบน GitHub!', 'success');
 }
 
 function clearAllLinks() {
@@ -1025,6 +1026,54 @@ function applyBulkTag() {
     }
   });
   showToast('✓ อัพเดท tag แล้ว กด "บันทึกลิงค์" เพื่อใช้งาน', 'success');
+}
+
+/* ══════════════════════════════════════════════════════════
+   EXPORT HTML — ฝังข้อมูลลงในไฟล์ HTML โดยตรง
+   → upload ทับ GitHub Pages ได้เลย ข้อมูลไม่หาย
+══════════════════════════════════════════════════════════ */
+function collectCurrentData() {
+  // อ่านค่าจาก input ทั้งหมดก่อน
+  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
+    const asin = input.dataset.asin;
+    const val = input.value.trim();
+    const p = BEST_SELLERS.find(x => x.asin === asin);
+    if (p) p.customLink = val;
+    if (val) customLinks[asin] = val; else delete customLinks[asin];
+  });
+  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
+    const asin = input.dataset.asin;
+    const val = input.value.trim();
+    const p = BEST_SELLERS.find(x => x.asin === asin);
+    if (p) p.imageUrl = val;
+    if (val) imageUrls[asin] = val; else delete imageUrls[asin];
+  });
+}
+
+function exportHTML() {
+  collectCurrentData();
+  // สร้าง JS data block ใหม่ที่มีลิงค์และรูปฝังอยู่
+  const dataBlock = `const BEST_SELLERS = ${JSON.stringify(BEST_SELLERS, null, 2)};`;
+  // อ่าน source HTML ของหน้านี้
+  const fullHtml = document.documentElement.outerHTML;
+  // แทนที่ BEST_SELLERS block ใน source
+  const updated = fullHtml.replace(
+    /const BEST_SELLERS = \[[\s\S]*?\];/,
+    dataBlock
+  );
+  // ฝัง storeId ลงไปด้วย
+  const withStore = updated.replace(
+    /let storeId = localStorage\.getItem\(STORE_KEY\) \|\| '[^']*';/,
+    `let storeId = '${storeId}';`
+  );
+  const blob = new Blob([withStore], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('⬇ ดาวน์โหลด index.html แล้ว → upload ทับ GitHub!', 'success');
 }
 
 /* ══════════════════════════════════════════════════════════
