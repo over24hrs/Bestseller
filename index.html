@@ -23,16 +23,232 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--text);line-height:1.7;}
 
-/* CONFIG BAR */
-.config-bar{background:#0d1120;padding:10px 5%;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.config-bar label{color:rgba(255,255,255,0.5);font-size:12px;font-family:'JetBrains Mono',monospace;}
-.config-bar input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:5px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;width:190px;outline:none;}
-.config-bar input:focus{border-color:var(--gold);}
-.config-bar button{background:var(--gold);color:var(--ink);border:none;padding:6px 14px;border-radius:4px;font-weight:700;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;}
-.config-status{font-size:11px;font-family:'JetBrains Mono',monospace;}
-.config-status.ok{color:#6ee7b7;} .config-status.err{color:#fca5a5;}
+/* ══════════════════════════════════════
+   ADMIN PANEL
+══════════════════════════════════════ */
+#adminPanel {
+  background: #0a0d18;
+  border-bottom: 2px solid var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+}
 
-/* NAV */
+.admin-topbar {
+  background: #0d1120;
+  padding: 8px 5%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-topbar label { color: rgba(255,255,255,0.45); font-size: 11px; }
+.admin-topbar input {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  width: 200px;
+  outline: none;
+}
+.admin-topbar input:focus { border-color: var(--gold); }
+.btn-admin {
+  padding: 5px 13px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  transition: all 0.2s;
+}
+.btn-save { background: var(--gold); color: var(--ink); }
+.btn-save:hover { background: var(--gold-light); }
+.btn-toggle { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15) !important; border: none; }
+.btn-toggle:hover { background: rgba(255,255,255,0.14); }
+.btn-export { background: rgba(45,138,78,0.2); color: #6ee7b7; border: 1px solid rgba(45,138,78,0.35) !important; border: none; }
+.btn-import { background: rgba(59,63,140,0.25); color: #a5b4fc; border: 1px solid rgba(59,63,140,0.4) !important; border: none; }
+.config-status { font-size: 11px; margin-left: auto; }
+.config-status.ok { color: #6ee7b7; } .config-status.err { color: #fca5a5; }
+
+/* LINK MANAGER TABLE */
+#linkManager {
+  display: none;
+  padding: 0 5% 20px;
+}
+#linkManager.open { display: block; }
+
+.lm-header {
+  padding: 16px 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.lm-title { color: var(--gold); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+.lm-hint { color: rgba(255,255,255,0.3); font-size: 11px; margin-top: 2px; }
+
+.lm-search {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  width: 220px;
+  outline: none;
+}
+.lm-search:focus { border-color: var(--gold); }
+.lm-search::placeholder { color: rgba(255,255,255,0.25); }
+
+.lm-table-wrap {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+table.lm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.lm-table thead th {
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 9px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  white-space: nowrap;
+}
+.lm-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.15s;
+}
+.lm-table tbody tr:last-child { border-bottom: none; }
+.lm-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+.lm-table td { padding: 8px 12px; vertical-align: middle; }
+.td-rank { color: var(--gold); font-weight: 700; font-size: 11px; width: 36px; }
+.td-emoji { font-size: 20px; width: 36px; text-align: center; }
+.td-title { color: rgba(255,255,255,0.75); max-width: 240px; line-height: 1.3; font-size: 11px; }
+.td-cat { color: rgba(255,255,255,0.35); font-size: 10px; white-space: nowrap; }
+.td-price { color: #fca5a5; white-space: nowrap; }
+.td-status { white-space: nowrap; }
+
+/* LINK INPUT FIELD */
+.link-input-wrap { display: flex; align-items: center; gap: 6px; }
+.link-input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #e0e0ff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  width: 280px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.link-input:focus { border-color: var(--gold); background: rgba(201,151,42,0.05); }
+.link-input.has-link { border-color: rgba(45,138,78,0.5); color: #6ee7b7; }
+.link-input.has-link:focus { border-color: var(--green); }
+
+.btn-test {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.4);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-test:hover { border-color: var(--gold); color: var(--gold); }
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.status-badge.custom { background: rgba(45,138,78,0.15); color: #6ee7b7; border: 1px solid rgba(45,138,78,0.3); }
+.status-badge.auto { background: rgba(201,151,42,0.12); color: var(--gold); border: 1px solid rgba(201,151,42,0.25); }
+
+/* BULK ACTIONS BAR */
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 0 4px;
+}
+.bulk-label { color: rgba(255,255,255,0.3); font-size: 11px; }
+.bulk-input {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  width: 200px;
+  outline: none;
+}
+.bulk-input:focus { border-color: var(--gold); }
+.lm-save-all {
+  margin-top: 14px;
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.lm-save-all:hover { background: var(--gold-light); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--ink);
+  border: 1px solid var(--gold);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  z-index: 9999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { border-color: var(--green); }
+.toast.error { border-color: #c0392b; }
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
 nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:2px solid var(--gold);}
 .nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;text-decoration:none;}
 .nav-logo span{color:var(--gold);}
@@ -106,8 +322,8 @@ nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display
 .skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .skeleton-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.skeleton-img{height:190px;} .skeleton-body{padding:16px;}
-.skeleton-line{height:13px;margin-bottom:10px;} .skeleton-line.short{width:55%;} .skeleton-line.medium{width:78%;}
+.skeleton-img{height:190px;}.skeleton-body{padding:16px;}
+.skeleton-line{height:13px;margin-bottom:10px;}.skeleton-line.short{width:55%;}.skeleton-line.medium{width:78%;}
 
 /* REFRESH BTN */
 .refresh-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
@@ -115,7 +331,7 @@ nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display
 .refresh-btn.spinning svg{animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* SEO BLOG TEASER */
+/* BLOG */
 .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
 .blog-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all 0.2s;}
 .blog-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(26,26,46,0.1);border-color:var(--gold);}
@@ -149,16 +365,13 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 .affiliate-notice{font-size:11px;color:rgba(255,255,255,0.25);max-width:620px;line-height:1.6;}
 
-/* API NOTICE */
-.api-notice{margin-top:24px;background:rgba(201,151,42,0.08);border:1px solid rgba(201,151,42,0.25);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted);display:none;}
-
 @media(max-width:768px){
   .nav-links{display:none;}
   .footer-top{grid-template-columns:1fr 1fr;}
   .newsletter-form{flex-direction:column;}
-  .config-bar{flex-direction:column;align-items:flex-start;}
   .trust-bar{gap:16px;}
   .hero-stats{gap:24px;}
+  .link-input{width:180px;}
 }
 @media(max-width:480px){
   .footer-top{grid-template-columns:1fr;}
@@ -169,12 +382,72 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
 </head>
 <body>
 
-<!-- CONFIG BAR (Admin only - hide in production) -->
-<div class="config-bar">
-  <label>🔑 Store ID:</label>
-  <input type="text" id="storeId" placeholder="bestselle0e48-20" value="bestselle0e48-20">
-  <button onclick="saveConfig()">Save</button>
-  <span class="config-status ok" id="configStatus">✓ Active: bestselle0e48-20</span>
+<!-- ══════════════════════════════════════
+     ADMIN PANEL — ซ่อน/แสดงด้วยปุ่ม Toggle
+══════════════════════════════════════ -->
+<div id="adminPanel">
+
+  <!-- Top Bar: Store ID & ปุ่มควบคุม -->
+  <div class="admin-topbar">
+    <label>🔑 Store ID:</label>
+    <input type="text" id="storeId" placeholder="bestselle0e48-20" value="bestselle0e48-20">
+    <button class="btn-admin btn-save" onclick="saveStoreId()">บันทึก</button>
+    <button class="btn-admin btn-toggle" onclick="toggleLinkManager()">
+      📋 <span id="toggleLabel">เปิด Link Manager</span>
+    </button>
+    <button class="btn-admin btn-export" onclick="exportLinks()">⬇ Export JSON</button>
+    <label style="cursor:pointer;">
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importLinks(event)">
+      <span class="btn-admin btn-import" onclick="document.getElementById('importFile').click()">⬆ Import JSON</span>
+    </label>
+    <span class="config-status ok" id="configStatus">✓ Active: bestselle0e48-20</span>
+  </div>
+
+  <!-- LINK MANAGER TABLE -->
+  <div id="linkManager">
+    <div class="lm-header">
+      <div>
+        <div class="lm-title">📦 Product Link Manager</div>
+        <div class="lm-hint">ใส่ลิงค์สินค้าโดยตรง — ถ้าไม่ใส่จะใช้ Amazon ASIN อัตโนมัติ</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <input class="lm-search" type="text" placeholder="🔍 ค้นหาสินค้า..." oninput="filterTable(this.value)">
+        <button class="btn-admin btn-save" onclick="clearAllLinks()" style="background:rgba(192,57,43,0.2);color:#fca5a5;">🗑 ล้างลิงค์ทั้งหมด</button>
+      </div>
+    </div>
+
+    <!-- Bulk Tag Override -->
+    <div class="bulk-bar">
+      <span class="bulk-label">แทนที่ Tag ทั้งหมด:</span>
+      <input class="bulk-input" type="text" id="bulkTag" placeholder="tag=YOUR-TAG-20 (ใส่แค่ tag parameter)">
+      <button class="btn-admin btn-save" onclick="applyBulkTag()">ใช้กับทุกลิงค์</button>
+      <span class="bulk-label" style="margin-left:8px;">หรือตั้งค่า Store ID ด้านบนเพื่อใช้ Amazon auto-link</span>
+    </div>
+
+    <div class="lm-table-wrap">
+      <table class="lm-table" id="linkTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>สินค้า</th>
+            <th>หมวด</th>
+            <th>ราคา</th>
+            <th>สถานะ</th>
+            <th style="min-width:320px;">ลิงค์สินค้า (วางลิงค์ที่นี่)</th>
+            <th>ทดสอบ</th>
+          </tr>
+        </thead>
+        <tbody id="linkTableBody">
+          <!-- rows จะถูก render โดย JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <button class="lm-save-all" onclick="saveAllLinks()">
+      💾 บันทึกลิงค์ทั้งหมด
+    </button>
+  </div>
+
 </div>
 
 <!-- NAV -->
@@ -196,22 +469,10 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
   <p class="hero-sub">We track Amazon's best-selling products daily across every category — so you don't have to. Honest reviews, real ratings, and the best deals on top-rated products.</p>
   <a href="#bestsellers" class="hero-cta">Browse Best Sellers &rarr;</a>
   <div class="hero-stats">
-    <div>
-      <div class="stat-num" id="statProducts">12</div>
-      <div class="stat-label">Featured Products</div>
-    </div>
-    <div>
-      <div class="stat-num">10+</div>
-      <div class="stat-label">Categories</div>
-    </div>
-    <div>
-      <div class="stat-num">Daily</div>
-      <div class="stat-label">Auto Updated</div>
-    </div>
-    <div>
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Honest Reviews</div>
-    </div>
+    <div><div class="stat-num" id="statProducts">12</div><div class="stat-label">Featured Products</div></div>
+    <div><div class="stat-num">10+</div><div class="stat-label">Categories</div></div>
+    <div><div class="stat-num">Daily</div><div class="stat-label">Auto Updated</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-label">Honest Reviews</div></div>
   </div>
 </section>
 
@@ -259,19 +520,12 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
     <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>
     <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>
   </div>
-
-  <div class="api-notice" id="apiNotice">
-    <strong style="color:var(--gold);">ℹ️ Note:</strong> Products shown are real Amazon Best Sellers with verified ASINs. Once you have <strong>Amazon PA API access</strong> (after 3 qualifying sales), live prices, images, and real-time rankings will update automatically.
-  </div>
 </section>
 
-<!-- BUYING GUIDES (SEO Content) -->
+<!-- BUYING GUIDES -->
 <section class="section section-alt" id="guides">
   <div class="section-header">
-    <div>
-      <div class="section-title">Buying Guides</div>
-      <div class="section-sub">Expert advice to help you find the perfect product</div>
-    </div>
+    <div><div class="section-title">Buying Guides</div><div class="section-sub">Expert advice to help you find the perfect product</div></div>
     <a href="#" class="see-all">View All Guides →</a>
   </div>
   <div class="blog-grid">
@@ -366,58 +620,415 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
   </div>
 </footer>
 
-<script>
-const STORE_ID_KEY = 'dealshub_store_id';
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast"></div>
 
+<script>
+/* ══════════════════════════════════════════════════════════
+   DATA — แก้ไขข้อมูลสินค้าที่นี่
+   customLink: ใส่ลิงค์โดยตรง (ถ้าว่างจะใช้ Amazon ASIN อัตโนมัติ)
+══════════════════════════════════════════════════════════ */
 const BEST_SELLERS = [
-  { asin:'B09B8RVKGM', title:'Apple AirPods Pro (2nd Generation) with MagSafe Case', category:'electronics', cat:'Electronics', price:'$189.00', oldPrice:'$249.00', rating:4.7, reviews:85420, badge:'#1 Best Seller', emoji:'🎧', keywords:['AirPods Pro 2nd gen','best noise cancelling earbuds','Apple wireless earphones','premium earbuds 2026'] },
-  { asin:'B0CHX2QMKR', title:'Amazon Fire TV Stick 4K Max — Streaming Device', category:'electronics', cat:'Electronics', price:'$59.99', oldPrice:'$69.99', rating:4.6, reviews:42100, badge:'Best Seller', emoji:'📺', keywords:['Fire TV Stick 4K','best streaming device','Amazon smart TV stick','4K HDR streaming'] },
-  { asin:'B08SXNXFHK', title:'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart', category:'home', cat:'Home & Kitchen', price:'$79.95', oldPrice:'$99.99', rating:4.7, reviews:128000, badge:'#1 Best Seller', emoji:'🍲', keywords:['Instant Pot Duo','best pressure cooker','7-in-1 cooker','top kitchen appliance 2026'] },
-  { asin:'B07WG5NKF3', title:'Ninja BN701 Professional Plus Blender, 1400 Peak Watts', category:'home', cat:'Home & Kitchen', price:'$99.99', oldPrice:'$129.99', rating:4.8, reviews:32500, badge:'Top Rated', emoji:'🥤', keywords:['Ninja professional blender','best blender for smoothies','1400 watt blender','kitchen blender review'] },
-  { asin:'B000YJ2SKE', title:'CeraVe Moisturizing Cream — Body & Face Moisturizer 19 oz', category:'beauty', cat:'Beauty & Skincare', price:'$18.98', oldPrice:'$22.99', rating:4.8, reviews:98400, badge:'#1 Best Seller', emoji:'🧴', keywords:['CeraVe moisturizing cream','best face moisturizer','dermatologist recommended skincare','sensitive skin cream'] },
-  { asin:'B08GH2XLHD', title:'COSRX Snail Mucin 96% Power Repairing Essence, 3.38 fl.oz', category:'beauty', cat:'Beauty & Skincare', price:'$25.00', oldPrice:'$30.00', rating:4.5, reviews:56700, badge:'K-Beauty Pick', emoji:'✨', keywords:['COSRX snail mucin essence','best Korean skincare','glass skin routine','anti-aging essence Amazon'] },
-  { asin:'B07ZF7BHJ3', title:'Resistance Bands Set — 5 Levels Exercise Bands for Workout', category:'sports', cat:'Sports & Fitness', price:'$15.99', oldPrice:'$24.99', rating:4.6, reviews:78900, badge:'#1 Best Seller', emoji:'💪', keywords:['resistance bands set','best workout bands','home gym equipment','exercise resistance bands review'] },
-  { asin:'B000FGDIAI', title:'Hydro Flask 40 oz Wide Mouth Travel Tumbler', category:'sports', cat:'Sports & Fitness', price:'$44.95', oldPrice:null, rating:4.8, reviews:41200, badge:'Top Pick', emoji:'🫗', keywords:['Hydro Flask tumbler','best insulated water bottle','40oz travel tumbler','stainless steel bottle review'] },
-  { asin:'1982176547', title:'Atomic Habits by James Clear — Build Good Habits & Break Bad Ones', category:'books', cat:'Books', price:'$14.99', oldPrice:'$27.00', rating:4.8, reviews:165000, badge:'#1 Bestseller', emoji:'📗', keywords:['Atomic Habits James Clear','best self help book','habit building book','most popular book on Amazon'] },
-  { asin:'B07CBJQS16', title:'Vitafusion Multivites Gummy Multivitamins for Adults, 150ct', category:'health', cat:'Health & Wellness', price:'$12.49', oldPrice:'$15.99', rating:4.7, reviews:54300, badge:'Best Seller', emoji:'💊', keywords:['best gummy multivitamin adults','Vitafusion vitamins review','daily multivitamin Amazon','immune support vitamins'] },
-  { asin:'B07THGQ778', title:'LEGO Classic Large Creative Brick Box — 790 Pieces', category:'toys', cat:'Toys & Games', price:'$49.99', oldPrice:'$64.99', rating:4.9, reviews:23400, badge:'#1 Best Seller', emoji:'🧱', keywords:['LEGO Classic set','best LEGO for kids','creative building toys','top toys Amazon 2026'] },
-  { asin:'B000I1PWGK', title:'BLACK+DECKER 20V MAX Cordless Drill/Driver with Battery', category:'tools', cat:'Tools & DIY', price:'$59.99', oldPrice:'$79.00', rating:4.6, reviews:45600, badge:'Best Seller', emoji:'🔧', keywords:['BLACK+DECKER cordless drill','best drill for home use','20V drill review','top power tools Amazon'] },
+  {
+    asin: 'B09B8RVKGM',
+    title: 'Apple AirPods Pro (2nd Generation) with MagSafe Case',
+    category: 'electronics', cat: 'Electronics',
+    price: '$189.00', oldPrice: '$249.00',
+    rating: 4.7, reviews: 85420,
+    badge: '#1 Best Seller', emoji: '🎧',
+    keywords: ['AirPods Pro 2nd gen', 'best noise cancelling earbuds', 'Apple wireless earphones', 'premium earbuds 2026'],
+    customLink: ''  // ← วางลิงค์สินค้าที่นี่
+  },
+  {
+    asin: 'B0CHX2QMKR',
+    title: 'Amazon Fire TV Stick 4K Max — Streaming Device',
+    category: 'electronics', cat: 'Electronics',
+    price: '$59.99', oldPrice: '$69.99',
+    rating: 4.6, reviews: 42100,
+    badge: 'Best Seller', emoji: '📺',
+    keywords: ['Fire TV Stick 4K', 'best streaming device', 'Amazon smart TV stick', '4K HDR streaming'],
+    customLink: ''
+  },
+  {
+    asin: 'B08SXNXFHK',
+    title: 'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart',
+    category: 'home', cat: 'Home & Kitchen',
+    price: '$79.95', oldPrice: '$99.99',
+    rating: 4.7, reviews: 128000,
+    badge: '#1 Best Seller', emoji: '🍲',
+    keywords: ['Instant Pot Duo', 'best pressure cooker', '7-in-1 cooker', 'top kitchen appliance 2026'],
+    customLink: ''
+  },
+  {
+    asin: 'B07WG5NKF3',
+    title: 'Ninja BN701 Professional Plus Blender, 1400 Peak Watts',
+    category: 'home', cat: 'Home & Kitchen',
+    price: '$99.99', oldPrice: '$129.99',
+    rating: 4.8, reviews: 32500,
+    badge: 'Top Rated', emoji: '🥤',
+    keywords: ['Ninja professional blender', 'best blender for smoothies', '1400 watt blender', 'kitchen blender review'],
+    customLink: ''
+  },
+  {
+    asin: 'B000YJ2SKE',
+    title: 'CeraVe Moisturizing Cream — Body & Face Moisturizer 19 oz',
+    category: 'beauty', cat: 'Beauty & Skincare',
+    price: '$18.98', oldPrice: '$22.99',
+    rating: 4.8, reviews: 98400,
+    badge: '#1 Best Seller', emoji: '🧴',
+    keywords: ['CeraVe moisturizing cream', 'best face moisturizer', 'dermatologist recommended skincare', 'sensitive skin cream'],
+    customLink: ''
+  },
+  {
+    asin: 'B08GH2XLHD',
+    title: 'COSRX Snail Mucin 96% Power Repairing Essence, 3.38 fl.oz',
+    category: 'beauty', cat: 'Beauty & Skincare',
+    price: '$25.00', oldPrice: '$30.00',
+    rating: 4.5, reviews: 56700,
+    badge: 'K-Beauty Pick', emoji: '✨',
+    keywords: ['COSRX snail mucin essence', 'best Korean skincare', 'glass skin routine', 'anti-aging essence Amazon'],
+    customLink: ''
+  },
+  {
+    asin: 'B07ZF7BHJ3',
+    title: 'Resistance Bands Set — 5 Levels Exercise Bands for Workout',
+    category: 'sports', cat: 'Sports & Fitness',
+    price: '$15.99', oldPrice: '$24.99',
+    rating: 4.6, reviews: 78900,
+    badge: '#1 Best Seller', emoji: '💪',
+    keywords: ['resistance bands set', 'best workout bands', 'home gym equipment', 'exercise resistance bands review'],
+    customLink: ''
+  },
+  {
+    asin: 'B000FGDIAI',
+    title: 'Hydro Flask 40 oz Wide Mouth Travel Tumbler',
+    category: 'sports', cat: 'Sports & Fitness',
+    price: '$44.95', oldPrice: null,
+    rating: 4.8, reviews: 41200,
+    badge: 'Top Pick', emoji: '🫗',
+    keywords: ['Hydro Flask tumbler', 'best insulated water bottle', '40oz travel tumbler', 'stainless steel bottle review'],
+    customLink: ''
+  },
+  {
+    asin: '1982176547',
+    title: 'Atomic Habits by James Clear — Build Good Habits & Break Bad Ones',
+    category: 'books', cat: 'Books',
+    price: '$14.99', oldPrice: '$27.00',
+    rating: 4.8, reviews: 165000,
+    badge: '#1 Bestseller', emoji: '📗',
+    keywords: ['Atomic Habits James Clear', 'best self help book', 'habit building book', 'most popular book on Amazon'],
+    customLink: ''
+  },
+  {
+    asin: 'B07CBJQS16',
+    title: 'Vitafusion Multivites Gummy Multivitamins for Adults, 150ct',
+    category: 'health', cat: 'Health & Wellness',
+    price: '$12.49', oldPrice: '$15.99',
+    rating: 4.7, reviews: 54300,
+    badge: 'Best Seller', emoji: '💊',
+    keywords: ['best gummy multivitamin adults', 'Vitafusion vitamins review', 'daily multivitamin Amazon', 'immune support vitamins'],
+    customLink: ''
+  },
+  {
+    asin: 'B07THGQ778',
+    title: 'LEGO Classic Large Creative Brick Box — 790 Pieces',
+    category: 'toys', cat: 'Toys & Games',
+    price: '$49.99', oldPrice: '$64.99',
+    rating: 4.9, reviews: 23400,
+    badge: '#1 Best Seller', emoji: '🧱',
+    keywords: ['LEGO Classic set', 'best LEGO for kids', 'creative building toys', 'top toys Amazon 2026'],
+    customLink: ''
+  },
+  {
+    asin: 'B000I1PWGK',
+    title: 'BLACK+DECKER 20V MAX Cordless Drill/Driver with Battery',
+    category: 'tools', cat: 'Tools & DIY',
+    price: '$59.99', oldPrice: '$79.00',
+    rating: 4.6, reviews: 45600,
+    badge: 'Best Seller', emoji: '🔧',
+    keywords: ['BLACK+DECKER cordless drill', 'best drill for home use', '20V drill review', 'top power tools Amazon'],
+    customLink: ''
+  },
 ];
 
+/* ══════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════ */
+const STORE_KEY = 'dealshub_store_id';
+const LINKS_KEY = 'dealshub_custom_links';
+
 let currentFilter = 'all';
-let storeId = localStorage.getItem(STORE_ID_KEY) || 'bestselle0e48-20';
+let storeId = localStorage.getItem(STORE_KEY) || 'bestselle0e48-20';
+let customLinks = {}; // { asin: customLink }
 
-function getStoreId(){ return document.getElementById('storeId').value.trim() || storeId; }
+// โหลด customLinks จาก localStorage
+function loadStoredLinks() {
+  try {
+    const stored = localStorage.getItem(LINKS_KEY);
+    if (stored) customLinks = JSON.parse(stored);
+  } catch(e) {}
+  // merge into BEST_SELLERS
+  BEST_SELLERS.forEach(p => {
+    if (customLinks[p.asin]) p.customLink = customLinks[p.asin];
+  });
+}
 
-function saveConfig(){
+function saveStoredLinks() {
+  localStorage.setItem(LINKS_KEY, JSON.stringify(customLinks));
+}
+
+/* ══════════════════════════════════════════════════════════
+   LINK RESOLUTION — ลิงค์จริงที่ใช้ใน card
+══════════════════════════════════════════════════════════ */
+function resolveLink(p) {
+  if (p.customLink && p.customLink.trim()) return p.customLink.trim();
+  return `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
+}
+
+function isCustom(p) {
+  return !!(p.customLink && p.customLink.trim());
+}
+
+/* ══════════════════════════════════════════════════════════
+   ADMIN FUNCTIONS
+══════════════════════════════════════════════════════════ */
+function saveStoreId() {
   const id = document.getElementById('storeId').value.trim();
-  if(!id){ showStatus('err','⚠ Enter Store ID'); return; }
+  if (!id) { showStatus('err', '⚠ กรุณาใส่ Store ID'); return; }
   storeId = id;
-  localStorage.setItem(STORE_ID_KEY, id);
-  showStatus('ok','✓ Saved: ' + id);
+  localStorage.setItem(STORE_KEY, id);
+  showStatus('ok', '✓ บันทึกแล้ว: ' + id);
   renderProducts();
+  renderLinkTable();
 }
 
-function showStatus(type, msg){
+function showStatus(type, msg) {
   const el = document.getElementById('configStatus');
-  el.textContent = msg; el.className = 'config-status ' + type;
+  el.textContent = msg;
+  el.className = 'config-status ' + type;
 }
 
-function buildLink(asin){ return `https://www.amazon.com/dp/${asin}?tag=${getStoreId()}`; }
+let linkManagerOpen = false;
+function toggleLinkManager() {
+  linkManagerOpen = !linkManagerOpen;
+  const lm = document.getElementById('linkManager');
+  const label = document.getElementById('toggleLabel');
+  if (linkManagerOpen) {
+    lm.classList.add('open');
+    label.textContent = 'ปิด Link Manager';
+    renderLinkTable();
+  } else {
+    lm.classList.remove('open');
+    label.textContent = 'เปิด Link Manager';
+  }
+}
 
-function starsHTML(r){
+/* ══════════════════════════════════════════════════════════
+   LINK TABLE
+══════════════════════════════════════════════════════════ */
+function renderLinkTable(filter = '') {
+  const tbody = document.getElementById('linkTableBody');
+  const q = filter.toLowerCase();
+  const rows = BEST_SELLERS.filter(p =>
+    !q || p.title.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)
+  );
+
+  tbody.innerHTML = rows.map((p, i) => {
+    const autoLink = `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
+    const custom = isCustom(p);
+    const displayLink = custom ? p.customLink : '';
+    return `
+    <tr data-asin="${p.asin}">
+      <td class="td-rank">#${BEST_SELLERS.indexOf(p) + 1}</td>
+      <td class="td-emoji">${p.emoji}</td>
+      <td class="td-title">${p.title}</td>
+      <td class="td-cat">${p.cat}</td>
+      <td class="td-price">${p.price}</td>
+      <td class="td-status">
+        <span class="status-badge ${custom ? 'custom' : 'auto'}">
+          ${custom ? '✓ Custom' : '⚡ Auto'}
+        </span>
+      </td>
+      <td>
+        <div class="link-input-wrap">
+          <input
+            class="link-input ${custom ? 'has-link' : ''}"
+            type="url"
+            placeholder="${autoLink}"
+            value="${escHtml(displayLink)}"
+            data-asin="${p.asin}"
+            oninput="onLinkInput(this)"
+            onpaste="setTimeout(()=>onLinkInput(this),10)"
+          >
+        </div>
+      </td>
+      <td>
+        <button class="btn-test" onclick="testLink('${p.asin}')">🔗 เปิด</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function escHtml(str) {
+  return (str || '').replace(/"/g, '&quot;');
+}
+
+function onLinkInput(input) {
+  const asin = input.dataset.asin;
+  const val = input.value.trim();
+  const p = BEST_SELLERS.find(x => x.asin === asin);
+  if (!p) return;
+
+  p.customLink = val;
+  input.classList.toggle('has-link', !!val);
+
+  // อัพเดต status badge
+  const row = input.closest('tr');
+  const badge = row.querySelector('.status-badge');
+  if (badge) {
+    badge.className = `status-badge ${val ? 'custom' : 'auto'}`;
+    badge.textContent = val ? '✓ Custom' : '⚡ Auto';
+  }
+}
+
+function filterTable(q) {
+  renderLinkTable(q);
+}
+
+function saveAllLinks() {
+  // อ่านค่าทั้งหมดจาก input ก่อน save
+  document.querySelectorAll('.link-input').forEach(input => {
+    const asin = input.dataset.asin;
+    const val = input.value.trim();
+    const p = BEST_SELLERS.find(x => x.asin === asin);
+    if (p) p.customLink = val;
+    if (val) customLinks[asin] = val;
+    else delete customLinks[asin];
+  });
+  saveStoredLinks();
+  renderProducts();
+  showToast('💾 บันทึกลิงค์ทั้งหมดแล้ว!', 'success');
+}
+
+function clearAllLinks() {
+  if (!confirm('ล้างลิงค์ทั้งหมดใช่ไหม? ระบบจะกลับไปใช้ Amazon auto-link')) return;
+  BEST_SELLERS.forEach(p => p.customLink = '');
+  customLinks = {};
+  saveStoredLinks();
+  renderLinkTable();
+  renderProducts();
+  showToast('🗑 ล้างลิงค์ทั้งหมดแล้ว', 'success');
+}
+
+function testLink(asin) {
+  const p = BEST_SELLERS.find(x => x.asin === asin);
+  if (!p) return;
+  // อ่าน input ล่าสุดก่อน
+  const input = document.querySelector(`.link-input[data-asin="${asin}"]`);
+  if (input) p.customLink = input.value.trim();
+  window.open(resolveLink(p), '_blank');
+}
+
+function applyBulkTag() {
+  const tag = document.getElementById('bulkTag').value.trim();
+  if (!tag) { showToast('⚠ กรุณาใส่ tag parameter', 'error'); return; }
+  const inputs = document.querySelectorAll('.link-input');
+  inputs.forEach(input => {
+    const asin = input.dataset.asin;
+    const p = BEST_SELLERS.find(x => x.asin === asin);
+    if (!p) return;
+    // เฉพาะลิงค์ที่มี ?tag= ให้แทนที่
+    if (input.value.includes('tag=')) {
+      input.value = input.value.replace(/tag=[^&]+/, tag);
+      p.customLink = input.value;
+    } else if (input.value === '') {
+      // ไม่ทำอะไร — auto link จะใช้ store id
+    }
+  });
+  showToast('✓ อัพเดท tag แล้ว กด "บันทึกลิงค์" เพื่อใช้งาน', 'success');
+}
+
+/* ══════════════════════════════════════════════════════════
+   EXPORT / IMPORT JSON
+══════════════════════════════════════════════════════════ */
+function exportLinks() {
+  // รวบรวมลิงค์ทั้งหมดจากตาราง
+  document.querySelectorAll('.link-input').forEach(input => {
+    const asin = input.dataset.asin;
+    const val = input.value.trim();
+    if (val) customLinks[asin] = val;
+    else delete customLinks[asin];
+  });
+
+  const exportData = {
+    storeId,
+    exportedAt: new Date().toISOString(),
+    links: BEST_SELLERS.map(p => ({
+      asin: p.asin,
+      title: p.title,
+      customLink: customLinks[p.asin] || ''
+    }))
+  };
+  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `dealshub-links-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('⬇ Export สำเร็จ!', 'success');
+}
+
+function importLinks(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.storeId) {
+        storeId = data.storeId;
+        document.getElementById('storeId').value = storeId;
+        localStorage.setItem(STORE_KEY, storeId);
+      }
+      if (data.links && Array.isArray(data.links)) {
+        data.links.forEach(item => {
+          if (item.asin && item.customLink) {
+            customLinks[item.asin] = item.customLink;
+            const p = BEST_SELLERS.find(x => x.asin === item.asin);
+            if (p) p.customLink = item.customLink;
+          }
+        });
+      }
+      saveStoredLinks();
+      renderLinkTable();
+      renderProducts();
+      showToast('⬆ Import สำเร็จ!', 'success');
+    } catch(err) {
+      showToast('⚠ ไฟล์ JSON ไม่ถูกต้อง', 'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+/* ══════════════════════════════════════════════════════════
+   PRODUCT GRID
+══════════════════════════════════════════════════════════ */
+function starsHTML(r) {
   let s = '';
-  for(let i=0;i<Math.floor(r);i++) s+='★';
-  if(r%1>=0.5) s+='½';
+  for(let i=0; i<Math.floor(r); i++) s += '★';
+  if(r%1 >= 0.5) s += '½';
   return s;
 }
 
-function renderCard(p, rank){
-  const link = buildLink(p.asin);
+function renderCard(p, rank) {
+  const link = resolveLink(p);
   const kw = p.keywords.slice(0,4).map(k=>`<span class="keyword-tag">${k}</span>`).join('');
   const oldP = p.oldPrice ? `<span class="card-price-old">${p.oldPrice}</span>` : '';
+  const isC = isCustom(p);
   return `
-  <div class="product-card" data-cat="${p.category}" data-asin="${p.asin}">
+  <div class="product-card" data-cat="${p.category}">
     <div class="card-img-wrap">
       <div class="card-img">${p.emoji}</div>
       ${p.badge ? `<div class="card-badge">${p.badge}</div>` : ''}
@@ -430,53 +1041,77 @@ function renderCard(p, rank){
       <div class="card-keywords">${kw}</div>
       <div class="card-footer">
         <div><span class="card-price">${p.price}</span>${oldP}</div>
-        <a href="${link}" target="_blank" rel="noopener sponsored" class="btn-amazon">🛒 View on Amazon</a>
+        <a href="${link}" target="_blank" rel="noopener ${isC ? '' : 'sponsored'}" class="btn-amazon">🛒 View on Amazon</a>
       </div>
     </div>
   </div>`;
 }
 
-function filterCat(cat, btn){
+function filterCat(cat, btn) {
   currentFilter = cat;
-  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   renderProducts();
 }
 
-function renderProducts(){
+function renderProducts() {
   const grid = document.getElementById('productGrid');
-  let data = currentFilter === 'all' ? BEST_SELLERS : BEST_SELLERS.filter(p=>p.category===currentFilter);
-  data = data.slice(0,12);
-  if(!data.length){ grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);">No products in this category yet.</div>`; return; }
-  grid.innerHTML = data.map((p,i)=>renderCard(p,i+1)).join('');
+  let data = currentFilter === 'all' ? BEST_SELLERS : BEST_SELLERS.filter(p => p.category === currentFilter);
+  data = data.slice(0, 12);
+  if (!data.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);">ยังไม่มีสินค้าในหมวดนี้</div>`;
+    return;
+  }
+  grid.innerHTML = data.map((p, i) => renderCard(p, i + 1)).join('');
   document.getElementById('statProducts').textContent = data.length;
 }
 
-function loadProducts(){
+function loadProducts() {
   const btn = document.getElementById('refreshBtn');
   btn.classList.add('spinning'); btn.disabled = true;
-  document.getElementById('productGrid').innerHTML = [1,2,3].map(()=>`<div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>`).join('');
-  setTimeout(()=>{
+  document.getElementById('productGrid').innerHTML = [1,2,3].map(() =>
+    `<div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>`
+  ).join('');
+  setTimeout(() => {
     renderProducts();
     const now = new Date();
     document.getElementById('lastUpdated').textContent = `Last updated: ${now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})} ${now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`;
     btn.classList.remove('spinning'); btn.disabled = false;
-    document.getElementById('apiNotice').style.display = 'block';
-  }, 1200);
+  }, 1000);
 }
 
-function subscribe(){
+/* ══════════════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════════════ */
+let toastTimer;
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.className = 'toast'; }, 3000);
+}
+
+/* ══════════════════════════════════════════════════════════
+   NEWSLETTER
+══════════════════════════════════════════════════════════ */
+function subscribe() {
   const input = document.getElementById('emailInput');
   const btn = document.querySelector('.newsletter-form button');
-  if(input.value.includes('@')){
+  if (input.value.includes('@')) {
     btn.textContent = '✓ Subscribed!'; btn.style.background = '#2d8a4e'; btn.style.color = '#fff';
     input.value = ''; input.disabled = true; btn.disabled = true;
   } else {
-    input.style.borderColor = '#c0392b'; input.placeholder = 'Please enter a valid email';
+    input.style.borderColor = '#c0392b'; input.placeholder = 'กรุณาใส่อีเมลที่ถูกต้อง';
   }
 }
 
+/* ══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════ */
 document.getElementById('storeId').value = storeId;
+showStatus('ok', '✓ Active: ' + storeId);
+loadStoredLinks();
 loadProducts();
 </script>
 </body>
