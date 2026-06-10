@@ -429,11 +429,13 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
         <thead>
           <tr>
             <th>#</th>
+            <th>รูป</th>
             <th>สินค้า</th>
             <th>หมวด</th>
             <th>ราคา</th>
             <th>สถานะ</th>
-            <th style="min-width:320px;">ลิงค์สินค้า (วางลิงค์ที่นี่)</th>
+            <th style="min-width:260px;">🔗 ลิงค์สินค้า <span style="color:rgba(255,255,255,0.25);font-weight:400;">(tag ติดอัตโนมัติ)</span></th>
+            <th style="min-width:260px;">🖼️ URL รูปภาพ</th>
             <th>ทดสอบ</th>
           </tr>
         </thead>
@@ -637,7 +639,8 @@ const BEST_SELLERS = [
     rating: 4.7, reviews: 85420,
     badge: '#1 Best Seller', emoji: '🎧',
     keywords: ['AirPods Pro 2nd gen', 'best noise cancelling earbuds', 'Apple wireless earphones', 'premium earbuds 2026'],
-    customLink: ''  // ← วางลิงค์สินค้าที่นี่
+    customLink: '',  // ← วางลิงค์สินค้าที่นี่
+    imageUrl: ''     // ← วาง URL รูปสินค้าที่นี่
   },
   {
     asin: 'B0CHX2QMKR',
@@ -647,7 +650,7 @@ const BEST_SELLERS = [
     rating: 4.6, reviews: 42100,
     badge: 'Best Seller', emoji: '📺',
     keywords: ['Fire TV Stick 4K', 'best streaming device', 'Amazon smart TV stick', '4K HDR streaming'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B08SXNXFHK',
@@ -657,7 +660,7 @@ const BEST_SELLERS = [
     rating: 4.7, reviews: 128000,
     badge: '#1 Best Seller', emoji: '🍲',
     keywords: ['Instant Pot Duo', 'best pressure cooker', '7-in-1 cooker', 'top kitchen appliance 2026'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B07WG5NKF3',
@@ -667,7 +670,7 @@ const BEST_SELLERS = [
     rating: 4.8, reviews: 32500,
     badge: 'Top Rated', emoji: '🥤',
     keywords: ['Ninja professional blender', 'best blender for smoothies', '1400 watt blender', 'kitchen blender review'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B000YJ2SKE',
@@ -677,7 +680,7 @@ const BEST_SELLERS = [
     rating: 4.8, reviews: 98400,
     badge: '#1 Best Seller', emoji: '🧴',
     keywords: ['CeraVe moisturizing cream', 'best face moisturizer', 'dermatologist recommended skincare', 'sensitive skin cream'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B08GH2XLHD',
@@ -687,7 +690,7 @@ const BEST_SELLERS = [
     rating: 4.5, reviews: 56700,
     badge: 'K-Beauty Pick', emoji: '✨',
     keywords: ['COSRX snail mucin essence', 'best Korean skincare', 'glass skin routine', 'anti-aging essence Amazon'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B07ZF7BHJ3',
@@ -697,7 +700,7 @@ const BEST_SELLERS = [
     rating: 4.6, reviews: 78900,
     badge: '#1 Best Seller', emoji: '💪',
     keywords: ['resistance bands set', 'best workout bands', 'home gym equipment', 'exercise resistance bands review'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B000FGDIAI',
@@ -707,7 +710,7 @@ const BEST_SELLERS = [
     rating: 4.8, reviews: 41200,
     badge: 'Top Pick', emoji: '🫗',
     keywords: ['Hydro Flask tumbler', 'best insulated water bottle', '40oz travel tumbler', 'stainless steel bottle review'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: '1982176547',
@@ -717,7 +720,7 @@ const BEST_SELLERS = [
     rating: 4.8, reviews: 165000,
     badge: '#1 Bestseller', emoji: '📗',
     keywords: ['Atomic Habits James Clear', 'best self help book', 'habit building book', 'most popular book on Amazon'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B07CBJQS16',
@@ -727,7 +730,7 @@ const BEST_SELLERS = [
     rating: 4.7, reviews: 54300,
     badge: 'Best Seller', emoji: '💊',
     keywords: ['best gummy multivitamin adults', 'Vitafusion vitamins review', 'daily multivitamin Amazon', 'immune support vitamins'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B07THGQ778',
@@ -737,7 +740,7 @@ const BEST_SELLERS = [
     rating: 4.9, reviews: 23400,
     badge: '#1 Best Seller', emoji: '🧱',
     keywords: ['LEGO Classic set', 'best LEGO for kids', 'creative building toys', 'top toys Amazon 2026'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
   {
     asin: 'B000I1PWGK',
@@ -747,7 +750,7 @@ const BEST_SELLERS = [
     rating: 4.6, reviews: 45600,
     badge: 'Best Seller', emoji: '🔧',
     keywords: ['BLACK+DECKER cordless drill', 'best drill for home use', '20V drill review', 'top power tools Amazon'],
-    customLink: ''
+    customLink: '', imageUrl: ''
   },
 ];
 
@@ -756,32 +759,54 @@ const BEST_SELLERS = [
 ══════════════════════════════════════════════════════════ */
 const STORE_KEY = 'dealshub_store_id';
 const LINKS_KEY = 'dealshub_custom_links';
+const IMAGES_KEY = 'dealshub_image_urls';
 
 let currentFilter = 'all';
 let storeId = localStorage.getItem(STORE_KEY) || 'bestselle0e48-20';
-let customLinks = {}; // { asin: customLink }
+let customLinks = {};
+let imageUrls = {};  // { asin: imageUrl }
 
-// โหลด customLinks จาก localStorage
+// โหลดข้อมูลจาก localStorage
 function loadStoredLinks() {
   try {
     const stored = localStorage.getItem(LINKS_KEY);
     if (stored) customLinks = JSON.parse(stored);
+    const storedImgs = localStorage.getItem(IMAGES_KEY);
+    if (storedImgs) imageUrls = JSON.parse(storedImgs);
   } catch(e) {}
-  // merge into BEST_SELLERS
   BEST_SELLERS.forEach(p => {
     if (customLinks[p.asin]) p.customLink = customLinks[p.asin];
+    if (imageUrls[p.asin]) p.imageUrl = imageUrls[p.asin];
   });
 }
 
 function saveStoredLinks() {
   localStorage.setItem(LINKS_KEY, JSON.stringify(customLinks));
+  localStorage.setItem(IMAGES_KEY, JSON.stringify(imageUrls));
 }
 
 /* ══════════════════════════════════════════════════════════
-   LINK RESOLUTION — ลิงค์จริงที่ใช้ใน card
+   LINK RESOLUTION — ติด tag id ทุกลิงค์อัตโนมัติ
 ══════════════════════════════════════════════════════════ */
+function appendTag(url) {
+  if (!url || !storeId) return url;
+  try {
+    const u = new URL(url);
+    // ถ้ายังไม่มี tag ให้เติมให้
+    if (!u.searchParams.get('tag')) {
+      u.searchParams.set('tag', storeId);
+    }
+    return u.toString();
+  } catch(e) {
+    // URL ไม่สมบูรณ์ — คืนค่าเดิม
+    return url;
+  }
+}
+
 function resolveLink(p) {
-  if (p.customLink && p.customLink.trim()) return p.customLink.trim();
+  if (p.customLink && p.customLink.trim()) {
+    return appendTag(p.customLink.trim());
+  }
   return `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
 }
 
@@ -833,14 +858,23 @@ function renderLinkTable(filter = '') {
     !q || p.title.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)
   );
 
-  tbody.innerHTML = rows.map((p, i) => {
-    const autoLink = `https://www.amazon.com/dp/${p.asin}?tag=${storeId}`;
+  tbody.innerHTML = rows.map((p) => {
+    const autoLink = appendTag(`https://www.amazon.com/dp/${p.asin}`);
     const custom = isCustom(p);
     const displayLink = custom ? p.customLink : '';
+    const displayImg = p.imageUrl || '';
+    const hasImg = !!displayImg;
+    const imgPreview = hasImg
+      ? `<img src="${escHtml(displayImg)}" style="width:44px;height:44px;object-fit:contain;border-radius:4px;background:#fff;border:1px solid rgba(255,255,255,0.1);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      : '';
+    const emojiFallback = `<span style="font-size:24px;${hasImg ? 'display:none' : ''}">${p.emoji}</span>`;
+
     return `
     <tr data-asin="${p.asin}">
       <td class="td-rank">#${BEST_SELLERS.indexOf(p) + 1}</td>
-      <td class="td-emoji">${p.emoji}</td>
+      <td style="width:52px;text-align:center;">
+        ${imgPreview}${emojiFallback}
+      </td>
       <td class="td-title">${p.title}</td>
       <td class="td-cat">${p.cat}</td>
       <td class="td-price">${p.price}</td>
@@ -857,8 +891,23 @@ function renderLinkTable(filter = '') {
             placeholder="${autoLink}"
             value="${escHtml(displayLink)}"
             data-asin="${p.asin}"
+            data-field="link"
             oninput="onLinkInput(this)"
             onpaste="setTimeout(()=>onLinkInput(this),10)"
+          >
+        </div>
+      </td>
+      <td>
+        <div class="link-input-wrap">
+          <input
+            class="link-input ${hasImg ? 'has-link' : ''}"
+            type="url"
+            placeholder="https://... (URL รูปสินค้า)"
+            value="${escHtml(displayImg)}"
+            data-asin="${p.asin}"
+            data-field="image"
+            oninput="onImageInput(this)"
+            onpaste="setTimeout(()=>onImageInput(this),10)"
           >
         </div>
       </td>
@@ -878,11 +927,8 @@ function onLinkInput(input) {
   const val = input.value.trim();
   const p = BEST_SELLERS.find(x => x.asin === asin);
   if (!p) return;
-
   p.customLink = val;
   input.classList.toggle('has-link', !!val);
-
-  // อัพเดต status badge
   const row = input.closest('tr');
   const badge = row.querySelector('.status-badge');
   if (badge) {
@@ -891,33 +937,66 @@ function onLinkInput(input) {
   }
 }
 
+function onImageInput(input) {
+  const asin = input.dataset.asin;
+  const val = input.value.trim();
+  const p = BEST_SELLERS.find(x => x.asin === asin);
+  if (!p) return;
+  p.imageUrl = val;
+  input.classList.toggle('has-link', !!val);
+  // อัพเดต preview รูปใน row เดียวกัน
+  const row = input.closest('tr');
+  const img = row.querySelector('img');
+  const emoji = row.querySelector('td:nth-child(2) span');
+  if (val) {
+    if (img) { img.src = val; img.style.display = ''; }
+    else {
+      const td = row.querySelector('td:nth-child(2)');
+      const newImg = document.createElement('img');
+      newImg.src = val;
+      newImg.style.cssText = 'width:44px;height:44px;object-fit:contain;border-radius:4px;background:#fff;border:1px solid rgba(255,255,255,0.1);';
+      newImg.onerror = () => { newImg.style.display = 'none'; if(emoji) emoji.style.display = ''; };
+      td.prepend(newImg);
+    }
+    if (emoji) emoji.style.display = 'none';
+  } else {
+    if (img) img.style.display = 'none';
+    if (emoji) emoji.style.display = '';
+  }
+}
+
 function filterTable(q) {
   renderLinkTable(q);
 }
 
 function saveAllLinks() {
-  // อ่านค่าทั้งหมดจาก input ก่อน save
-  document.querySelectorAll('.link-input').forEach(input => {
+  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
     const asin = input.dataset.asin;
     const val = input.value.trim();
     const p = BEST_SELLERS.find(x => x.asin === asin);
     if (p) p.customLink = val;
-    if (val) customLinks[asin] = val;
-    else delete customLinks[asin];
+    if (val) customLinks[asin] = val; else delete customLinks[asin];
+  });
+  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
+    const asin = input.dataset.asin;
+    const val = input.value.trim();
+    const p = BEST_SELLERS.find(x => x.asin === asin);
+    if (p) p.imageUrl = val;
+    if (val) imageUrls[asin] = val; else delete imageUrls[asin];
   });
   saveStoredLinks();
   renderProducts();
-  showToast('💾 บันทึกลิงค์ทั้งหมดแล้ว!', 'success');
+  showToast('💾 บันทึกลิงค์และรูปทั้งหมดแล้ว!', 'success');
 }
 
 function clearAllLinks() {
-  if (!confirm('ล้างลิงค์ทั้งหมดใช่ไหม? ระบบจะกลับไปใช้ Amazon auto-link')) return;
-  BEST_SELLERS.forEach(p => p.customLink = '');
-  customLinks = {};
+  if (!confirm('ล้างลิงค์และรูปทั้งหมดใช่ไหม?')) return;
+  BEST_SELLERS.forEach(p => { p.customLink = ''; p.imageUrl = ''; });
+  customLinks = {}; imageUrls = {};
   saveStoredLinks();
   renderLinkTable();
   renderProducts();
-  showToast('🗑 ล้างลิงค์ทั้งหมดแล้ว', 'success');
+  showToast('🗑 ล้างลิงค์และรูปทั้งหมดแล้ว', 'success');
 }
 
 function testLink(asin) {
@@ -952,21 +1031,25 @@ function applyBulkTag() {
    EXPORT / IMPORT JSON
 ══════════════════════════════════════════════════════════ */
 function exportLinks() {
-  // รวบรวมลิงค์ทั้งหมดจากตาราง
-  document.querySelectorAll('.link-input').forEach(input => {
+  document.querySelectorAll('.link-input[data-field="link"]').forEach(input => {
     const asin = input.dataset.asin;
     const val = input.value.trim();
-    if (val) customLinks[asin] = val;
-    else delete customLinks[asin];
+    if (val) customLinks[asin] = val; else delete customLinks[asin];
   });
-
+  document.querySelectorAll('.link-input[data-field="image"]').forEach(input => {
+    const asin = input.dataset.asin;
+    const val = input.value.trim();
+    if (val) imageUrls[asin] = val; else delete imageUrls[asin];
+  });
   const exportData = {
     storeId,
     exportedAt: new Date().toISOString(),
     links: BEST_SELLERS.map(p => ({
       asin: p.asin,
       title: p.title,
-      customLink: customLinks[p.asin] || ''
+      customLink: customLinks[p.asin] || '',
+      resolvedLink: resolveLink(p),
+      imageUrl: imageUrls[p.asin] || ''
     }))
   };
   const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
@@ -993,11 +1076,10 @@ function importLinks(event) {
       }
       if (data.links && Array.isArray(data.links)) {
         data.links.forEach(item => {
-          if (item.asin && item.customLink) {
-            customLinks[item.asin] = item.customLink;
-            const p = BEST_SELLERS.find(x => x.asin === item.asin);
-            if (p) p.customLink = item.customLink;
-          }
+          const p = BEST_SELLERS.find(x => x.asin === item.asin);
+          if (!p) return;
+          if (item.customLink) { customLinks[item.asin] = item.customLink; p.customLink = item.customLink; }
+          if (item.imageUrl)   { imageUrls[item.asin]  = item.imageUrl;   p.imageUrl  = item.imageUrl; }
         });
       }
       saveStoredLinks();
@@ -1027,10 +1109,19 @@ function renderCard(p, rank) {
   const kw = p.keywords.slice(0,4).map(k=>`<span class="keyword-tag">${k}</span>`).join('');
   const oldP = p.oldPrice ? `<span class="card-price-old">${p.oldPrice}</span>` : '';
   const isC = isCustom(p);
+
+  const imgContent = p.imageUrl
+    ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}"
+         style="width:100%;height:100%;object-fit:contain;padding:12px;"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+       >
+       <span style="display:none;align-items:center;justify-content:center;font-size:68px;width:100%;height:100%;">${p.emoji}</span>`
+    : `<span style="font-size:68px;">${p.emoji}</span>`;
+
   return `
   <div class="product-card" data-cat="${p.category}">
     <div class="card-img-wrap">
-      <div class="card-img">${p.emoji}</div>
+      <div class="card-img" style="${p.imageUrl ? 'background:#fff;' : ''}">${imgContent}</div>
       ${p.badge ? `<div class="card-badge">${p.badge}</div>` : ''}
       <div class="card-rank">#${rank}</div>
     </div>
