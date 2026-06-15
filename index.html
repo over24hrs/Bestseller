@@ -193,13 +193,55 @@ table.lm-table{width:100%;border-collapse:collapse;font-size:12px;}
 .nav-heart{color:var(--ebay-red);margin-right:2px;font-size:12px;}
 
 /* ── HERO BANNER ── */
-.hero-banner{background:linear-gradient(135deg,#8bc34a 0%,#6da82e 50%,#4c8c1a 100%);overflow:hidden;}
-.banner-inner{max-width:1400px;margin:0 auto;padding:0 5%;display:grid;grid-template-columns:280px 1fr;min-height:240px;}
-.banner-text{display:flex;flex-direction:column;justify-content:center;padding:32px 20px 32px 0;}
-.banner-text h2{font-size:clamp(20px,3vw,34px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;text-shadow:0 1px 3px rgba(0,0,0,0.2);}
-.banner-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#333;padding:11px 22px;border-radius:4px;font-weight:700;font-size:14px;text-decoration:none;transition:all 0.2s;width:fit-content;}
-.banner-cta:hover{background:#f5f5f5;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15);}
-.banner-products{display:flex;align-items:center;padding:16px 0;justify-content:flex-end;gap:8px;}
+.hero-banner{
+  background:linear-gradient(120deg,#5aaa1a 0%,#7ac224 35%,#8fd02e 60%,#a8e040 100%);
+  overflow:hidden;position:relative;min-height:220px;
+}
+.hero-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 60%,rgba(255,255,255,0.08) 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 20%,rgba(255,255,255,0.06) 0%,transparent 50%);
+  pointer-events:none;
+}
+/* leaf decorations */
+.hero-leaf{position:absolute;opacity:0.55;pointer-events:none;user-select:none;}
+.hero-leaf-l{left:-20px;bottom:-10px;width:160px;transform:rotate(-15deg);}
+.hero-leaf-r{right:-20px;top:-10px;width:160px;transform:rotate(165deg);}
+
+.banner-inner{max-width:1400px;margin:0 auto;padding:0 4% 0 4%;display:flex;align-items:center;min-height:220px;gap:0;position:relative;z-index:1;}
+.banner-text{flex-shrink:0;width:260px;display:flex;flex-direction:column;justify-content:center;padding:28px 0;}
+.banner-tag{display:inline-block;font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.banner-text h2{font-size:clamp(22px,2.8vw,36px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,0.18);}
+.banner-text h2 span{display:block;font-size:clamp(28px,3.8vw,48px);color:#fff700;text-shadow:0 2px 10px rgba(0,0,0,0.25);}
+.banner-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#333;padding:11px 24px;border-radius:5px;font-weight:700;font-size:14px;text-decoration:none;transition:all 0.2s;width:fit-content;box-shadow:0 4px 14px rgba(0,0,0,0.15);}
+.banner-cta:hover{background:#f5f5f5;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.2);}
+
+/* podium product stage */
+.banner-stage{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:12px 0 0;height:220px;position:relative;}
+.podium-item{display:flex;flex-direction:column;align-items:center;position:relative;}
+.podium-img{object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.28));flex-shrink:0;}
+.podium-cyl{border-radius:50%/14px;position:relative;flex-shrink:0;}
+/* top ellipse cap */
+.podium-cyl::before{content:'';position:absolute;top:-7px;left:0;right:0;height:14px;border-radius:50%;background:inherit;filter:brightness(1.12);}
+/* colour variants */
+.podium-w{background:#e0e0e0;}.podium-w::before{background:#f0f0f0;}
+.podium-teal{background:#26a69a;}.podium-teal::before{background:#4db6ac;}
+.podium-lime{background:#aed142;}.podium-lime::before{background:#c6e85a;}
+.podium-coral{background:#ef7d57;}.podium-coral::before{background:#f39274;}
+.podium-sky{background:#42a5f5;}.podium-sky::before{background:#64b5f6;}
+.podium-sand{background:#ffca28;}.podium-sand::before{background:#ffd54f;}
+
+@media(max-width:900px){
+  .banner-stage{gap:6px;}
+  .banner-text{width:220px;}
+  .hero-leaf{display:none;}
+}
+@media(max-width:640px){
+  .banner-inner{flex-direction:column;align-items:flex-start;min-height:auto;padding:20px 5%;}
+  .banner-stage{width:100%;height:140px;justify-content:flex-start;overflow:hidden;}
+  .banner-text{width:100%;padding:0 0 12px;}
+  .banner-text h2{font-size:22px;}
+}
 
 /* ── PROMO STRIP ── */
 .promo-strip{display:grid;grid-template-columns:220px 1fr;background:var(--ebay-promo);overflow:hidden;}
@@ -544,16 +586,66 @@ footer{background:#1a1a1a;padding:40px 5% 24px;color:rgba(255,255,255,0.5);font-
      HERO BANNER
 ════════════════════════════════ -->
 <div class="hero-banner">
+  <!-- tropical leaf decorations -->
+  <svg class="hero-leaf hero-leaf-l" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 190 C20 190 -10 100 60 40 C130 -20 155 10 155 10 C155 10 110 30 80 80 C50 130 40 190 20 190Z" fill="#4caf50"/>
+    <path d="M20 190 C20 190 40 130 80 80" stroke="#388e3c" stroke-width="2" fill="none"/>
+    <path d="M30 170 C30 170 0 80 70 20 C140 -40 158 5 158 5 C158 5 115 20 90 65 C65 110 50 170 30 170Z" fill="#66bb6a" opacity="0.6"/>
+  </svg>
+  <svg class="hero-leaf hero-leaf-r" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 190 C20 190 -10 100 60 40 C130 -20 155 10 155 10 C155 10 110 30 80 80 C50 130 40 190 20 190Z" fill="#4caf50"/>
+    <path d="M20 190 C20 190 40 130 80 80" stroke="#388e3c" stroke-width="2" fill="none"/>
+    <path d="M30 170 C30 170 0 80 70 20 C140 -40 158 5 158 5 C158 5 115 20 90 65 C65 110 50 170 30 170Z" fill="#66bb6a" opacity="0.6"/>
+  </svg>
+
   <div class="banner-inner">
+    <!-- left: sale text -->
     <div class="banner-text">
-      <h2 data-i18n="banner.title">Summer Sale<br>Up to 50% Off<br>Top Deals!</h2>
+      <span class="banner-tag" data-i18n="banner.tag">Summer Sale</span>
+      <h2><span data-i18n="banner.discount">Up to 50% Off</span><br><span style="font-size:clamp(16px,2vw,22px);color:#fff;" data-i18n="banner.sub">Top Deals!</span></h2>
       <a href="#products-section" class="banner-cta" data-i18n="banner.cta">Shop Now →</a>
     </div>
-    <div class="banner-products">
-      <div style="font-size:100px;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3));">💻</div>
-      <div style="font-size:100px;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3));">👟</div>
-      <div style="font-size:90px;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3));">📱</div>
-    </div>
+
+    <!-- right: podium product stage -->
+    <div class="banner-stage">
+
+      <!-- headphones – tall white podium -->
+      <div class="podium-item">
+        <img class="podium-img" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=130&h=110&fit=crop&auto=format" width="130" height="110" alt="Headphones" loading="eager" onerror="this.style.display='none'">
+        <div class="podium-cyl podium-w" style="width:90px;height:90px;"></div>
+      </div>
+
+      <!-- laptop – tallest teal podium -->
+      <div class="podium-item">
+        <img class="podium-img" src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=160&h=120&fit=crop&auto=format" width="160" height="120" alt="Laptop" loading="eager" onerror="this.style.display='none'">
+        <div class="podium-cyl podium-teal" style="width:110px;height:120px;"></div>
+      </div>
+
+      <!-- sneakers – lime podium -->
+      <div class="podium-item">
+        <img class="podium-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=130&h=100&fit=crop&auto=format" width="130" height="100" alt="Sneakers" loading="eager" onerror="this.style.display='none'">
+        <div class="podium-cyl podium-lime" style="width:95px;height:70px;"></div>
+      </div>
+
+      <!-- smartwatch – coral podium -->
+      <div class="podium-item">
+        <img class="podium-img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=110&h=110&fit=crop&auto=format" width="110" height="110" alt="Smartwatch" loading="eager" onerror="this.style.display='none'">
+        <div class="podium-cyl podium-coral" style="width:85px;height:95px;"></div>
+      </div>
+
+      <!-- phone – sky podium -->
+      <div class="podium-item">
+        <img class="podium-img" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&h=130&fit=crop&auto=format" width="100" height="130" alt="Phone" loading="eager" onerror="this.style.display='none'">
+        <div class="podium-cyl podium-sky" style="width:80px;height:110px;"></div>
+      </div>
+
+      <!-- sunglasses – sand podium -->
+      <div class="podium-item">
+        <img class="podium-img" src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=120&h=90&fit=crop&auto=format" width="120" height="90" alt="Sunglasses" loading="eager" onerror="this.style.display='none'">
+        <div class="podium-cyl podium-sand" style="width:85px;height:60px;"></div>
+      </div>
+
+    </div><!-- /banner-stage -->
   </div>
 </div>
 
@@ -753,7 +845,7 @@ const TRANSLATIONS = {
     'cat.beauty':'💄 Beauty','cat.sports':'⚽ Sports','cat.books':'📚 Books',
     'cat.toys':'🧸 Toys','cat.health':'🌿 Health','cat.fashion':'👗 Fashion',
     'cat.tools':'🔧 Tools','cat.food':'🍎 Grocery',
-    'banner.title':'Summer Sale<br>Up to 50% Off<br>Top Deals!','banner.cta':'Shop Now →',
+    'banner.tag':'Summer Sale','banner.discount':'Up to 50% Off','banner.sub':'Top Deals!','banner.cta':'Shop Now →',
     'promo.title':'Electronics<br>Up to 40% Off','promo.sub':'Tablets, laptops, cameras & more','promo.cta':'Shop Now →',
     'section.title':'Today\'s Best Sellers','section.refresh':'Refresh','section.seeAll':'See all →',
     'section.searchPlaceholder':'Search products...',
@@ -806,7 +898,7 @@ const TRANSLATIONS = {
     'cat.beauty':'💄 ความงาม','cat.sports':'⚽ กีฬา','cat.books':'📚 หนังสือ',
     'cat.toys':'🧸 ของเล่น','cat.health':'🌿 สุขภาพ','cat.fashion':'👗 แฟชั่น',
     'cat.tools':'🔧 เครื่องมือ','cat.food':'🍎 อาหาร',
-    'banner.title':'โปรโมชันซัมเมอร์<br>ลดสูงสุด 50%<br>ดีลสุดคุ้ม!','banner.cta':'ช้อปเลย →',
+    'banner.tag':'โปรโมชันซัมเมอร์','banner.discount':'ลดสูงสุด 50%','banner.sub':'ดีลสุดคุ้ม!','banner.cta':'ช้อปเลย →',
     'promo.title':'อิเล็กทรอนิกส์<br>ลดสูงสุด 40%','promo.sub':'แท็บเล็ต แล็ปท็อป กล้อง และอื่นๆ','promo.cta':'ช้อปเลย →',
     'section.title':'สินค้าขายดีวันนี้','section.refresh':'รีเฟรช','section.seeAll':'ดูทั้งหมด →',
     'section.searchPlaceholder':'ค้นหาสินค้า...',
