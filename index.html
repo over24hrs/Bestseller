@@ -921,6 +921,8 @@ function applyTranslations() {
 const CLOUDINARY_CLOUD  = 'dgaonx6tx';
 const CLOUDINARY_PRESET = 'product_images';
 const STORE_KEY      = 'dealshub_store_id';
+const DEFAULT_SB_URL = ''; // ← ใส่ Supabase URL ของคุณที่นี่ เช่น 'https://xxxx.supabase.co'
+const DEFAULT_SB_KEY = ''; // ← ใส่ Anon Key ของคุณที่นี่
 const SB_URL_KEY     = 'dealshub_sb_url';
 const SB_KEY_KEY     = 'dealshub_sb_key';
 const ADMIN_PIN_KEY  = 'dealshub_admin_pin';
@@ -1306,7 +1308,7 @@ document.addEventListener('keydown',e=>{
   applyTranslations();
 
   document.getElementById('storeId').value=storeId;showStatus('ok','✓ Active: '+storeId);
-  const savedSbUrl=localStorage.getItem(SB_URL_KEY)||'',savedSbKey=localStorage.getItem(SB_KEY_KEY)||'';
+  const savedSbUrl=localStorage.getItem(SB_URL_KEY)||DEFAULT_SB_URL,savedSbKey=localStorage.getItem(SB_KEY_KEY)||DEFAULT_SB_KEY;
   if(savedSbUrl){sbUrl=savedSbUrl;document.getElementById('sbUrl').value=sbUrl;}
   if(savedSbKey){sbKey=savedSbKey;document.getElementById('sbKey').value=sbKey;}
   if(sessionStorage.getItem(ADMIN_AUTH_KEY)==='1')showAdminPanel();
