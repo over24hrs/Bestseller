@@ -499,6 +499,86 @@ nav{background:var(--ink);position:sticky;top:0;z-index:100;padding:0 5%;display
 .refresh-btn.spinning svg{animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
+/* PRODUCT CARD — clickable cursor */
+.product-card{cursor:pointer;}
+.btn-details{background:var(--gold);color:var(--ink);padding:7px 13px;border-radius:4px;font-size:12px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:'Inter',sans-serif;}
+.btn-details:hover{background:var(--gold-light);}
+
+/* ══════════════════════════════════════
+   PRODUCT DETAIL MODAL (Pre-Sell Page)
+══════════════════════════════════════ */
+#productModal{
+  display:none;position:fixed;inset:0;z-index:8000;
+  background:rgba(10,13,24,0.85);backdrop-filter:blur(6px);
+  align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;
+}
+#productModal.open{display:flex;}
+.modal-box{
+  background:var(--paper);border:1px solid var(--border);border-radius:12px;
+  max-width:860px;width:100%;
+  position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.45);
+  animation:modalIn 0.22s cubic-bezier(0.34,1.4,0.64,1);margin:auto;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(0.94) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(0,0,0,0.08);border:none;border-radius:50%;
+  width:34px;height:34px;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;z-index:2;
+  color:var(--muted);transition:all 0.2s;
+}
+.modal-close:hover{background:rgba(0,0,0,0.15);color:var(--text);}
+.modal-inner{padding:20px 32px 36px;}
+@media(max-width:600px){.modal-inner{padding:16px 18px 28px;}}
+.modal-top{display:grid;grid-template-columns:220px 1fr;gap:28px;margin-bottom:24px;}
+@media(max-width:600px){.modal-top{grid-template-columns:1fr;}}
+.modal-img-wrap{
+  width:220px;height:220px;border-radius:10px;background:var(--cream);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  border:1px solid var(--border);flex-shrink:0;
+}
+.modal-img-wrap img{width:100%;height:100%;object-fit:contain;padding:10px;}
+.modal-emoji{font-size:80px;}
+.modal-cat{
+  display:inline-block;background:var(--tag-bg);color:var(--tag-color);
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;
+  letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;
+}
+.modal-title{
+  font-family:'Playfair Display',serif;font-size:21px;font-weight:700;
+  color:var(--ink);line-height:1.35;margin-bottom:10px;padding-right:40px;
+}
+.modal-stars{color:var(--gold);font-size:14px;margin-bottom:8px;}
+.modal-stars span{color:var(--muted);font-size:12px;margin-left:5px;}
+.modal-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;}
+.modal-price{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--red);}
+.modal-price-old{font-size:13px;color:var(--muted);text-decoration:line-through;font-family:'JetBrains Mono',monospace;}
+.modal-click-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(45,138,78,0.1);border:1px solid rgba(45,138,78,0.25);
+  color:var(--green);padding:3px 9px;border-radius:20px;font-size:11px;
+  font-family:'JetBrains Mono',monospace;font-weight:600;margin-bottom:14px;
+}
+.modal-badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.modal-badge{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase;}
+.btn-amazon-main{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--gold);color:var(--ink);padding:14px 28px;
+  border-radius:6px;font-size:15px;font-weight:700;text-decoration:none;
+  transition:all 0.2s;width:100%;margin-top:4px;
+}
+.btn-amazon-main:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,151,42,0.3);}
+.modal-disclaimer{font-size:10px;color:var(--muted);margin-top:8px;text-align:center;line-height:1.5;}
+.modal-divider{border:none;border-top:1px solid var(--border);margin:22px 0;}
+.modal-section-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+.pros-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.pros-list li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);line-height:1.5;}
+.pros-list li::before{content:'✓';color:var(--green);font-weight:700;font-size:14px;flex-shrink:0;margin-top:1px;}
+.who-its-for{background:var(--cream);border-radius:8px;padding:14px 18px;margin-bottom:20px;border-left:3px solid var(--gold);}
+.who-its-for p{font-size:14px;color:var(--text);line-height:1.7;}
+.modal-keywords{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.modal-keyword-tag{background:#f0f4ff;color:#4a5ab8;font-size:11px;padding:3px 9px;border-radius:10px;font-weight:600;}
+
 /* BLOG */
 .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
 .blog-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:all 0.2s;}
@@ -932,6 +1012,16 @@ footer{background:#0d1120;padding:48px 5% 28px;color:rgba(255,255,255,0.4);font-
 </footer>
 
 <div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════
+     PRODUCT DETAIL MODAL (Pre-Sell Page)
+══════════════════════════════════════ -->
+<div id="productModal" onclick="if(event.target===this)closeProductModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeProductModal()" title="Close">✕</button>
+    <div class="modal-inner" id="modalContent"></div>
+  </div>
+</div>
 
 <!-- ══════════════════════════
      JSON-LD STRUCTURED DATA
@@ -1655,7 +1745,6 @@ function getFilteredProducts() {
 }
 
 function renderCard(p, displayRank) {
-  const link     = resolveLink(p);
   const keywords = (p.keywords || []).slice(0, 4)
     .map(k => `<span class="keyword-tag">${escHtml(k)}</span>`).join('');
   const oldP = p.oldPrice
@@ -1674,7 +1763,7 @@ function renderCard(p, displayRank) {
   }
 
   return `
-  <div class="product-card" data-cat="${escHtml(p.category)}">
+  <div class="product-card" data-cat="${escHtml(p.category)}" onclick="openProductModal('${escHtml(p.asin)}')">
     <div class="card-img-wrap">
       <div class="card-img" style="${p.imageUrl ? 'background:#fff;position:relative;' : ''}">${imgContent}</div>
       ${p.badge ? `<div class="card-badge">${escHtml(p.badge)}</div>` : ''}
@@ -1687,7 +1776,7 @@ function renderCard(p, displayRank) {
       <div class="card-keywords">${keywords}</div>
       <div class="card-footer">
         <div><span class="card-price">${escHtml(p.price || '')}</span>${oldP}</div>
-        <a href="${escHtml(link)}" target="_blank" rel="noopener sponsored" class="btn-amazon">🛒 View on Amazon</a>
+        <button class="btn-details" onclick="event.stopPropagation();openProductModal('${escHtml(p.asin)}')">📋 View Details</button>
       </div>
     </div>
   </div>`;
@@ -1909,7 +1998,131 @@ document.addEventListener('keydown', (e) => {
     renderProducts();
     updateLastUpdated();
   }
+
+  /* Close modal on Escape */
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProductModal(); });
 })();
+
+/* ══════════════════════════════════════════════════════════
+   PRODUCT DETAIL MODAL — Pre-Sell Page
+══════════════════════════════════════════════════════════ */
+const CLICK_KEY = 'dealshub_clicks';
+
+function getClicks() {
+  try { return JSON.parse(localStorage.getItem(CLICK_KEY) || '{}'); } catch { return {}; }
+}
+
+function trackClick(asin) {
+  const data = getClicks();
+  data[asin] = (data[asin] || 0) + 1;
+  localStorage.setItem(CLICK_KEY, JSON.stringify(data));
+  /* Update badge live */
+  const badge = document.getElementById('modalClickBadge');
+  if (badge) badge.textContent = `🔥 ${data[asin].toLocaleString()} people clicked to buy`;
+}
+
+function whoItsFor(category) {
+  const map = {
+    electronics: 'Tech enthusiasts, students, and remote workers who want reliable, high-performance gear without overpaying.',
+    home:        'Homeowners and renters who want to make their space more functional, organised, and comfortable.',
+    beauty:      'Anyone who wants an effective, dermatologist-trusted routine without spending a fortune at the beauty counter.',
+    sports:      'Fitness lovers, weekend athletes, and anyone looking to stay active and hit their health goals.',
+    books:       'Lifelong learners, students, and curious minds who love to read and grow.',
+    toys:        'Parents and gift-givers who want safe, fun, and engaging toys that kids actually love.',
+    health:      'Health-conscious individuals looking for evidence-backed supplements and wellness essentials.',
+    fashion:     'Style-conscious shoppers who want quality clothing and accessories that look good and last.',
+    tools:       'DIY enthusiasts, homeowners, and hobbyists who need reliable tools that get the job done right.',
+    food:        'Home cooks and snack lovers who want quality pantry staples and grocery picks delivered fast.',
+  };
+  return map[category] || 'Anyone looking for a top-rated, well-reviewed product in this category.';
+}
+
+function openProductModal(asin) {
+  const p = products.find(x => x.asin === asin);
+  if (!p) return;
+
+  const link     = resolveLink(p);
+  const clicks   = getClicks();
+  const clickCnt = clicks[asin] || 0;
+  const keywords = (p.keywords || []);
+  const oldP     = p.oldPrice
+    ? `<span class="modal-price-old">${escHtml(p.oldPrice)}</span>` : '';
+
+  /* Image */
+  const imgHtml = p.imageUrl
+    ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+       <span class="modal-emoji" style="display:none;">${escHtml(p.emoji || '📦')}</span>`
+    : `<span class="modal-emoji">${escHtml(p.emoji || '📦')}</span>`;
+
+  /* Pros from keywords */
+  const proItems = keywords.length
+    ? keywords.map(k => `<li>${escHtml(k)}</li>`).join('')
+    : `<li>Top-rated by thousands of Amazon buyers</li>
+       <li>Excellent value for money</li>
+       <li>Consistently high customer satisfaction</li>`;
+
+  /* Click badge */
+  const clickBadge = clickCnt > 0
+    ? `<div class="modal-click-badge" id="modalClickBadge">🔥 ${clickCnt.toLocaleString()} people clicked to buy</div>`
+    : `<div class="modal-click-badge" id="modalClickBadge" style="display:none;">🔥 0 people clicked</div>`;
+
+  /* Badge row */
+  const badgeHtml = p.badge
+    ? `<div class="modal-badge-row"><span class="modal-badge">${escHtml(p.badge)}</span></div>` : '';
+
+  const content = `
+    <div class="modal-top">
+      <div class="modal-img-wrap">${imgHtml}</div>
+      <div>
+        <span class="modal-cat">${escHtml(p.cat || 'General')}</span>
+        ${badgeHtml}
+        <div class="modal-title">${escHtml(p.title)}</div>
+        ${p.rating ? `<div class="modal-stars">${starsHTML(p.rating)} <span>(${(p.reviews||0).toLocaleString()} reviews)</span></div>` : ''}
+        <div class="modal-price-row">
+          <span class="modal-price">${escHtml(p.price || '')}</span>${oldP}
+        </div>
+        ${clickBadge}
+        <a href="${escHtml(link)}" target="_blank" rel="nofollow sponsored"
+           class="btn-amazon-main"
+           onclick="trackClick('${escHtml(asin)}')">
+          🛒 Buy on Amazon &rarr;
+        </a>
+        <p class="modal-disclaimer">As an Amazon Associate we earn from qualifying purchases. Price shown is approximate and may change.</p>
+      </div>
+    </div>
+
+    <hr class="modal-divider">
+
+    <div class="modal-section-title">Why People Love This</div>
+    <ul class="pros-list">${proItems}</ul>
+
+    <div class="modal-section-title">Who Is This For?</div>
+    <div class="who-its-for">
+      <p>${whoItsFor(p.category)}</p>
+    </div>
+
+    ${keywords.length > 4 ? `<div class="modal-keywords">${keywords.slice(4).map(k => `<span class="modal-keyword-tag">${escHtml(k)}</span>`).join('')}</div>` : ''}
+
+    <hr class="modal-divider">
+
+    <a href="${escHtml(link)}" target="_blank" rel="nofollow sponsored"
+       class="btn-amazon-main"
+       onclick="trackClick('${escHtml(asin)}')">
+      🛒 Buy on Amazon — ${escHtml(p.price || 'See Price')}
+    </a>
+    <p class="modal-disclaimer" style="margin-top:10px;">You will be redirected to Amazon. We may earn a small commission at no extra cost to you.</p>
+  `;
+
+  document.getElementById('modalContent').innerHTML = content;
+  document.getElementById('productModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal() {
+  document.getElementById('productModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
